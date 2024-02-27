@@ -13,7 +13,7 @@ export default function Navigation() {
     }
 
     return (
-        <div className="navigation display-flex padding" >
+        <div className="" >
             <Link to="/"
                   className={location.pathname === '/' ? 'active' : ''}> 
                 Home 
