@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 export default function SignInHeader({children}) {
     return (
-        <header className="display-flex border-style border-radius">
+        <header className="">
             < Link to="/login"
                     className={location.pathname === '/login' ? 'active' : ''}> 
                 <button>Login</button> 

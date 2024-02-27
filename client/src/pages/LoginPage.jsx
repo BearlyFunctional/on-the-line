@@ -47,7 +47,7 @@ const Login = (props, { history }) => {
             <section>
                 <form onSubmit={handleFormSubmit}>
                     <input
-                        className="form-input"
+                        className=""
                         placeholder="Your email"
                         name="email"
                         type="email"
@@ -55,7 +55,7 @@ const Login = (props, { history }) => {
                         onChange={handleChange}
                     />
                     <input
-                        className="form-input"
+                        className=""
                         placeholder="******"
                         name="password"
                         type="password"
@@ -63,7 +63,7 @@ const Login = (props, { history }) => {
                         onChange={handleChange}
                     />
                     <button
-                        className="btn btn-block btn-primary"
+                        className=""
                         style={{ cursor: 'pointer' }}
                         type="submit"
                     >
