@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import { useMutation } from '@apollo/client';
 import { CREATE_USER } from '../utils/mutations';
@@ -14,6 +13,10 @@ const Signup = ({ history }) => {
         email: '',
         password: '',
     })
+    
+    const [usernameError, setUsernameError] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
 
     const [addUser, { error, data }] = useMutation(CREATE_USER);
 
@@ -25,6 +28,34 @@ const Signup = ({ history }) => {
         [name]: value,
         });
     };
+
+    const handleUsernameBlur = () => {
+        if (!formState.username) {
+            setUsernameError('* name is required');
+        } else {
+            setUsernameError('');
+        }
+    };
+
+    const handleEmailBlur = () => {
+        if (!formState.email) {
+          setEmailError('* email is required');
+        } else if (!/^([a-zA-Z0-9._-]+)@([a-zA-Z0-9.-]+)\.([a-zA-Z]{2,6})$/.test(formState.email)) {
+          setEmailError('* invalid email format');
+        } else {
+          setEmailError('');
+        }
+    };
+
+    const handlePasswordBlur = () => {
+        if(!formState.password) {
+            setPasswordError('* password is required');
+        } else if (!/^.{8,}$/.test(formState.password)) {
+            setPasswordError('* invalid password, must contain at least 8 characters');
+        } else {
+            setPasswordError('');
+        }
+    }
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -44,11 +75,10 @@ const Signup = ({ history }) => {
 
     return (
         <div>
-            <h1>
-                Signup Page
-            </h1>
-            <div className="card-body">
+            <h2 className='text-align-center'>Signup </h2>
+            <section>
                 <form onSubmit={handleFormSubmit}>
+                <label>Username:</label>
                     <input
                         className=""
                         placeholder="Your username"
@@ -56,7 +86,11 @@ const Signup = ({ history }) => {
                         type="text"
                         value={formState.name}
                         onChange={handleChange}
+                        onBlur={handleUsernameBlur}
                     />
+                    {usernameError && 
+                        <div className="error">{usernameError}</div>}
+                    <label>Email:</label>
                     <input
                         className=""
                         placeholder="Your email"
@@ -64,7 +98,11 @@ const Signup = ({ history }) => {
                         type="email"
                         value={formState.email}
                         onChange={handleChange}
+                        onBlur={handleEmailBlur}
                     />
+                    {emailError && 
+                        <div className='error'>{emailError}</div>}
+                    <label>Password:</label>
                     <input
                         className=""
                         placeholder="******"
@@ -72,7 +110,10 @@ const Signup = ({ history }) => {
                         type="password"
                         value={formState.password}
                         onChange={handleChange}
+                        onBlur={handlePasswordBlur}
                     />
+                    {passwordError && 
+                        <div className='error'>{passwordError}</div>}
                     <button
                         className=""
                         style={{ cursor: 'pointer' }}
@@ -87,7 +128,7 @@ const Signup = ({ history }) => {
                         {error.message}
                     </div>
                 )}
-            </div>
+            </section>
         </div>
     )
 }

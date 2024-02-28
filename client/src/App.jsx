@@ -7,6 +7,7 @@ import { Outlet } from 'react-router-dom';
 import Auth from './utils/auth';
 
 import Header from './components/Header';
+import SignInHeader from './components/SignInHeader';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
