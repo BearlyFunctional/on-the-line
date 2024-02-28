@@ -52,7 +52,7 @@ const Login = (props, { history }) => {
                 <form onSubmit={handleFormSubmit}>
                     <label>Email:</label>
                     <input
-                        className="form-input"
+                        className=""
                         placeholder="Your email"
                         name="email"
                         type="email"
@@ -61,7 +61,7 @@ const Login = (props, { history }) => {
                     />
                      <label>Password:</label>
                     <input
-                        className="form-input"
+                        className=""
                         placeholder="******"
                         name="password"
                         type="password"
@@ -71,7 +71,7 @@ const Login = (props, { history }) => {
                     {loginError && 
                         <div className="error">{loginError}</div>}
                     <button
-                        className="btn btn-block btn-primary"
+                        className=""
                         style={{ cursor: 'pointer' }}
                         type="submit"
                     >

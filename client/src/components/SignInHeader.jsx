@@ -9,11 +9,11 @@ export default function SignInHeader({children}) {
         <header className="">
             <div className='signin-header'>
                 <Link to="/login"
-                        className={location.pathname === '/login' ? 'active' : ''}> 
+                      className={location.pathname === '/login' ? 'active' : ''}> 
                     <button>Login</button> 
                 </Link>
                 <Link to="/signup"
-                    className={location.pathname === '/signup' ? 'active' : ''}>
+                      className={location.pathname === '/signup' ? 'active' : ''}>
                     <button>Sign Up</button> 
                 </Link>
             </div>
