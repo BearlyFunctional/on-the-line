@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from 'react-router-dom';
+
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 
@@ -7,7 +7,10 @@ import Auth from '../utils/auth';
 
 const Login = (props, { history }) => {
     const [formState, setFormState] = useState({ email: '', password: '' });
-    const [login, { error, data }] = useMutation(LOGIN_USER);
+    
+    const [loginError, setLoginError] = useState('');
+
+    const [login, { error }] = useMutation(LOGIN_USER);
 
     // update state based on form input changes
     const handleChange = (event) => {
@@ -32,6 +35,7 @@ const Login = (props, { history }) => {
             history.push('/')
         } catch (e) {
             console.error(e);
+            setLoginError('* incorrect email or password')
         }
 
         // clear form values
@@ -43,9 +47,10 @@ const Login = (props, { history }) => {
 
     return (
         <div>
-            <h2>Login Page</h2>
+            <h2 className='text-align-center'>Login</h2>
             <section>
                 <form onSubmit={handleFormSubmit}>
+                    <label>Email:</label>
                     <input
                         className="form-input"
                         placeholder="Your email"
@@ -54,6 +59,7 @@ const Login = (props, { history }) => {
                         value={formState.email}
                         onChange={handleChange}
                     />
+                     <label>Password:</label>
                     <input
                         className="form-input"
                         placeholder="******"
@@ -62,6 +68,8 @@ const Login = (props, { history }) => {
                         value={formState.password}
                         onChange={handleChange}
                     />
+                    {loginError && 
+                        <div className="error">{loginError}</div>}
                     <button
                         className="btn btn-block btn-primary"
                         style={{ cursor: 'pointer' }}
