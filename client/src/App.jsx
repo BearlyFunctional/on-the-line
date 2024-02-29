@@ -2,7 +2,8 @@ import './App.css'
 
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import Auth from './utils/auth';
 
@@ -35,10 +36,30 @@ const client = new ApolloClient({
 
 function App() {
 
+  const location = useLocation();
+
+  useEffect(() => {
+
+    const pathArray = ['/createPost', '/myPosts', '/donate'];
+
+    if (Auth.loggedIn() && location.pathname === '/home') {
+      document.body.style.placeItems = 'baseline';
+    } else {
+      document.body.style.placeItems = 'center'; 
+    }
+
+    if (pathArray.includes(location.pathname) ) {
+      document.body.style.placeItems = 'baseline';
+    }
+
+  }, [location.pathname]);
+
   return (
     <ApolloProvider client={client}>
       {Auth.loggedIn() ? < Header /> : ''}
-      < Outlet />
+      <div className='main-container'>
+        < Outlet />
+      </div>
     </ApolloProvider>
   )
 }

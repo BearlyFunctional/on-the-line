@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { useState } from "react";
 
 import { useMutation } from '@apollo/client';
@@ -32,7 +34,6 @@ const Login = (props, { history }) => {
             });
 
             Auth.login(data.login.token);
-            history.push('/')
         } catch (e) {
             console.error(e);
             setLoginError('* incorrect email or password')
