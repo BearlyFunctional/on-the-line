@@ -2,21 +2,26 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
+import Posts from '../components/Post';
+import { posts } from '../assets/data';
+
 import Auth from '../utils/auth';
 
 export default function HomePage () {
     return ( 
         <>
             {Auth.loggedIn() ? (
-                    <div>
-                        <h1>bienvenue à l'enfer: homepage</h1>
+                    <div className='padding-two'>
+                        {posts.map((post) => (
+                            < Posts post={post} key={post.id} />
+                        ))}
                     </div>
                 ) : ( 
-                    <div>
+                    <div className='place-items-center'>
                         <div>
                             <h1> On The Line </h1>
                         </div>
-                        <div className="login-links">
+                        <div className="navigation-links">
                             <div>
                                 <Link to="/login" 
                                     className={location.pathname === '/login' ? 'active' : ''}> 

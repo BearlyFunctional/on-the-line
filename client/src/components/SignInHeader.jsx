@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Link, useLocation } from 'react-router-dom';
 
 export default function SignInHeader({children}) {
@@ -7,7 +8,7 @@ export default function SignInHeader({children}) {
     
     return (
         <header className="">
-            <div className='signin-header'>
+            <div className='navigation-links'>
                 <Link to="/login"
                       className={location.pathname === '/login' ? 'active' : ''}> 
                     <button>Login</button> 

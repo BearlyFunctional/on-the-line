@@ -13,15 +13,37 @@ export default function Navigation() {
     }
 
     return (
-        <div className="" >
+        <div className="navigation-links" >
             <Link to="/"
                   className={location.pathname === '/' ? 'active' : ''}> 
-                Home 
+                <button>
+                    Home 
+                </button>
             </Link>
             {Auth.loggedIn() ? (
-                    <button className="" onClick={logout}>
-                        Logout
-                    </button>
+                    <>
+                        < Link to ="/createPost"
+                            className={location.pathname === 'createPost' ? 'active' : ''}>
+                            <button>
+                                Create Post
+                            </button>
+                        </Link>
+                        < Link to ="/myPosts"
+                            className={location.pathname === 'myPosts' ? 'active' : ''}>
+                            <button>
+                                My Posts
+                            </button>
+                        </Link>
+                        < Link to ="/donate"
+                            className={location.pathname === 'donate' ? 'active' : ''}>
+                            <button>
+                                Donate
+                            </button>
+                        </Link>
+                        <button className="" onClick={logout}>
+                            Logout
+                        </button>
+                    </>
                 ) : (
                     <>
                         <Link to="/login" 
