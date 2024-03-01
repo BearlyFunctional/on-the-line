@@ -49,11 +49,12 @@ const Login = (props, { history }) => {
     return (
         <div>
             <h2 className='text-align-center'>Login</h2>
-            <section>
-                <form onSubmit={handleFormSubmit}>
+            <section className=''>
+                <form  className='display-flex padding-two box-shadow'
+                    onSubmit={handleFormSubmit}>
                     <label>Email:</label>
                     <input
-                        className=""
+                        className='box-shadow border-radius'
                         placeholder="Your email"
                         name="email"
                         type="email"
@@ -62,7 +63,7 @@ const Login = (props, { history }) => {
                     />
                      <label>Password:</label>
                     <input
-                        className=""
+                        className='box-shadow border-radius'
                         placeholder="******"
                         name="password"
                         type="password"
@@ -78,6 +79,11 @@ const Login = (props, { history }) => {
                     >
                         Submit
                     </button>
+                    {error && (
+                    <div className="error">
+                        {error.message}
+                    </div>
+                )}
                 </form>
             </section>
         </div>

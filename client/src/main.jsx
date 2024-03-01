@@ -15,36 +15,36 @@ import Donate from './pages/DonatePage.jsx';
 import './index.css'
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        index: true,
-        element: <Home />
-      }, {
-        path: '/login',
-        element: <SignInHeader> <Login /> </SignInHeader>
-      }, {
-        path: '/signup',
-        element: <SignInHeader> <Signup /> </SignInHeader>
-      }, {
-        path: '/createPost',
-        element: <CreatePost/>
-      }, {
-        path: '/myPosts',
-        element: <MyPosts/>
-      }, {
-        path: '/donate',
-        element: <Donate/>
-      }
-    ]
-  }
-])
+	{
+		path: "/",
+		element: <App />,
+		errorElement: <ErrorPage />,
+		children: [
+			{
+				index: true,
+				element: <Home />
+			}, {
+				path: '/login',
+				element: <SignInHeader> <Login /> </SignInHeader>
+			}, {
+				path: '/signup',
+				element: <SignInHeader> <Signup /> </SignInHeader>
+			}, {
+				path: '/createPost',
+				element: <CreatePost/>
+			}, {
+				path: '/myPosts',
+				element: <MyPosts/>
+			}, {
+				path: '/donate',
+				element: <Donate/>
+			}
+		]
+	}
+]);
 
 ReactDOM
-  .createRoot(document.getElementById('root'))
-  .render(
-    <RouterProvider router={router} />
-  )
+	.createRoot(document.getElementById('root'))
+	.render(
+		<RouterProvider router={router} />
+	)

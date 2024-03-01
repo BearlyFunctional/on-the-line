@@ -21,7 +21,7 @@ export default function Posts({post}) {
                 <h3 className="">{Auth.getProfile().data.username}'s post</h3>
             </div>
             <div className="image-container">
-                <img src={post.image} alt={post.alt} ></img>
+                <img src={post.image} alt={post.alt} className='box-shadow border-radius' ></img>
             </div>
             <div className="">
                 <p>{post.caption ? post.caption : ''}</p>
