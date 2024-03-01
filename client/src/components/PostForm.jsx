@@ -89,6 +89,7 @@ const PostForm = () => {
                 {/* <br /> */}
                 <label>Enter image's alternative text:</label>
                 <textarea 
+                    className='border-radius box-shadow'
                     name="postAltText"
                     placeholder='alternative text'
                     value={formState.postAltText}
@@ -102,7 +103,7 @@ const PostForm = () => {
                 {/* <br /> */}
                 <label>Enter caption below:</label>
                 <textarea 
-                    className='border-radius'
+                    className='border-radius box-shadow'
                     name="postCaption"
                     placeholder='caption'
                     value={formState.postCaption}

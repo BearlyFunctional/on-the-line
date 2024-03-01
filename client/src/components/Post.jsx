@@ -27,14 +27,29 @@ export default function Posts({post}) {
                 <p>{post.caption ? post.caption : ''}</p>
                 <h4>{post.comments ? ( 
                     <div>
+                        // add a conditional statement that enables user to only edit/delete their own posts - for the homepage
                         <button onClick={toggleComments}>
                             view comments
                         </button>
                         {showComments && (
                             <div>
-                                {post.comments}
+                                <div>
+                                    {post.comments}
+                                </div>
+                                <button>
+                                    edit
+                                </button>
+                                <button>
+                                    delete
+                                </button>
                             </div>
                         )}
+                        <button>
+                            edit post
+                        </button>
+                        <button>
+                            delete post
+                        </button>
                     </div>
                     ) : ''}
                 </h4>
