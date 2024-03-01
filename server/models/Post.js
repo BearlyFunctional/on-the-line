@@ -10,10 +10,12 @@ const postSchema = new Schema(
             type: String,
             required: true,
         },
-        image: {
-            name: String,
-            required: true,
-            data: Buffer
+        image:  {
+            type: {
+                name: String,
+                data: Buffer
+            },
+            required: true
         },
         user: {
             type: Schema.Types.ObjectId, ref :'user'
