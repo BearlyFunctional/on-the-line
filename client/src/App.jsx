@@ -12,56 +12,61 @@ import SignInHeader from './components/SignInHeader';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
-  uri: '/graphql',
+    uri: '/graphql',
 });
 
 // Construct request middleware that will attach the JWT token to every request as an `authorization` header
 const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  const token = localStorage.getItem('id_token');
-  // return the headers to the context so httpLink can read them
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : '',
-    },
-  };
+    // get the authentication token from local storage if it exists
+    const token = localStorage.getItem('id_token');
+    // return the headers to the context so httpLink can read them
+    return {
+        headers: {
+            ...headers,
+            authorization: token ? `Bearer ${token}` : '',
+        },
+    };
 });
 
 const client = new ApolloClient({
-  // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+    // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
+    link: authLink.concat(httpLink),
+    cache: new InMemoryCache(),
 });
 
 function App() {
 
-  const location = useLocation();
+    const location = useLocation();
 
-  useEffect(() => {
+    useEffect(() => {
 
-    const pathArray = ['/createPost', '/myPosts', '/donate'];
+        const baselinePathArray = ['/createPost', '/myPosts', '/donate'];
+        const centerPathArray = ['/login', '/signup']
 
-    if (Auth.loggedIn() && location.pathname === '/home') {
-      document.body.style.placeItems = 'baseline';
-    } else {
-      document.body.style.placeItems = 'center'; 
-    }
+        if (Auth.loggedIn() && location.pathname === '/home') {
+            document.body.style.placeItems = 'baseline';
+        } else {
+            document.body.style.placeItems = 'center'; 
+        }
 
-    if (pathArray.includes(location.pathname) ) {
-      document.body.style.placeItems = 'baseline';
-    }
+        if(centerPathArray.includes(location.pathname)) {
+            document.body.style.placeItems = 'center'
+        }
 
-  }, [location.pathname]);
+        if (baselinePathArray.includes(location.pathname) ) {
+            document.body.style.placeItems = 'baseline';
+        }
 
-  return (
-    <ApolloProvider client={client}>
-      {Auth.loggedIn() ? < Header /> : ''}
-      <div className='main-container'>
-        < Outlet />
-      </div>
-    </ApolloProvider>
-  )
+    }, [location.pathname]);
+
+    return (
+        <ApolloProvider client={client}>
+            {Auth.loggedIn() ? < Header /> : ''}
+            <div className='main-container'>
+            < Outlet />
+            </div>
+        </ApolloProvider>
+    )
 }
 
 export default App;

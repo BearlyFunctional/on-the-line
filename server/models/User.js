@@ -1,6 +1,5 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
-const postSchema = require('./Post');
 
 const userSchema = new Schema(
     {
@@ -19,7 +18,9 @@ const userSchema = new Schema(
             type: String,
             required: true,
         },
-        posts: [postSchema],
+        posts: [{
+            type: Schema.Types.ObjectId, ref: 'post'
+        }],
     },
     {
         toJSON: {

@@ -1,22 +1,23 @@
 const { Schema, model } = require('mongoose');
-const userSchema = require('./User');
 
 const postSchema = new Schema(
     {
-        title: {
-            type: String,
-            required: true,
-        },
-        content: {
+        caption: {
             type: String,
             required: false,
+        },
+        altText: {
+            type: String,
+            required: true,
         },
         image: {
             name: String,
             required: true,
             data: Buffer
         },
-        user: userSchema,
+        user: {
+            type: Schema.Types.ObjectId, ref :'user'
+        },
         comments: [{ type: Schema.Types.ObjectId, ref: 'comment' }],
     },
     {

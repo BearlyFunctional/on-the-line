@@ -76,11 +76,12 @@ const Signup = ({ history }) => {
     return (
         <div>
             <h2 className='text-align-center'>Signup </h2>
-            <section>
-                <form onSubmit={handleFormSubmit}>
+            <section className=''>
+                <form   className='display-flex padding-two box-shadow'
+                        onSubmit={handleFormSubmit}>
                 <label>Username:</label>
                     <input
-                        className=""
+                        className='box-shadow border-radius'
                         placeholder="Your username"
                         name="username"
                         type="text"
@@ -92,7 +93,7 @@ const Signup = ({ history }) => {
                         <div className="error">{usernameError}</div>}
                     <label>Email:</label>
                     <input
-                        className=""
+                        className='box-shadow border-radius'
                         placeholder="Your email"
                         name="email"
                         type="email"
@@ -104,8 +105,8 @@ const Signup = ({ history }) => {
                         <div className='error'>{emailError}</div>}
                     <label>Password:</label>
                     <input
-                        className=""
-                        placeholder="******"
+                        className='box-shadow border-radius'
+                        placeholder="*********"
                         name="password"
                         type="password"
                         value={formState.password}
@@ -121,13 +122,12 @@ const Signup = ({ history }) => {
                     >
                         Submit
                     </button>
-                </form>
-
                 {error && (
-                    <div className="">
+                    <div className="error">
                         {error.message}
                     </div>
                 )}
+                </form>
             </section>
         </div>
     )

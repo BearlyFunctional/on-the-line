@@ -7,7 +7,7 @@ export default function SignInHeader({children}) {
     const location = useLocation();
     
     return (
-        <header className="">
+        <header className="signin-header">
             <div className='navigation-links'>
                 <Link to="/login"
                       className={location.pathname === '/login' ? 'active' : ''}> 

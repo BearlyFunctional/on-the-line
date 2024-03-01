@@ -67,14 +67,17 @@ const PostForm = () => {
     return (
         <>
             <h2 className='text-align-center'> Create New Post</h2>
-            <form onSubmit={handleFormSubmit}>
+            <form   className='display-flex padding-two box-shadow'
+                    onSubmit={handleFormSubmit}>
                 <label>
                     Upload picture:
                 </label>
-                <input type="file"
-                        accept='image'
-                        name='postImage'
-                        onChange={handleChange}>
+                <input 
+                    className='box-shadow border-radius'
+                    type="file"
+                    accept='image'
+                    name='postImage'
+                    onChange={handleChange}>
                 </input>
                 {formState.postImage && (
                     <img 
@@ -99,6 +102,7 @@ const PostForm = () => {
                 {/* <br /> */}
                 <label>Enter caption below:</label>
                 <textarea 
+                    className='border-radius'
                     name="postCaption"
                     placeholder='caption'
                     value={formState.postCaption}
