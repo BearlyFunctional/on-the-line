@@ -80,10 +80,10 @@ export const DELETE_POST = gql`
 
 // Comment mutations
 export const CREATE_COMMENT = gql`
-    mutation createComment($postId: ID!, $commentText: String!) {
-        createComment(postId: $postId, commentText: $commentText) {
+    mutation createComment($postId: ID!, $commentBody: String!) {
+        createComment(postId: $postId, content: $commentBody) {
             _id
-            commentText
+            content
             user {
                 _id
                 username
@@ -97,17 +97,17 @@ export const CREATE_COMMENT = gql`
 `;
 
 export const EDIT_COMMENT = gql`
-    mutation editComment($_id: ID!, $commentText: String!) {
-        editComment(_id: $_id, commentText: $commentText) {
+    mutation editComment($postId: String!, $commentId: String!, $commentBody: String!) {
+        editComment(postId: $postId, commentId: $commentId, commentBody: $commentBody) {
             _id
-            commentText
+            commentBody
         }
     }
 `;
 
 export const DELETE_COMMENT = gql`
-    mutation deleteComment($_id: ID!) {
-        deleteComment(_id: $_id) {
+    mutation deleteComment($postId: String!, $commentId: String!) {
+        deleteComment(postId: $postId, commentId: $commentId) {
             _id
         }
     }
