@@ -75,7 +75,7 @@ const Signup = ({ history }) => {
 
     return (
         <div>
-            <h2 className='text-align-center'>Signup </h2>
+            <h2 className='text-align-center padding-two'>Signup </h2>
             <section className=''>
                 <form   className='display-flex padding-two box-shadow'
                         onSubmit={handleFormSubmit}>
@@ -116,7 +116,7 @@ const Signup = ({ history }) => {
                     {passwordError && 
                         <div className='error'>{passwordError}</div>}
                     <button
-                        className=""
+                        className="lt-grey-bg"
                         style={{ cursor: 'pointer' }}
                         type="submit"
                     >

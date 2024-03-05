@@ -17,6 +17,7 @@ const userSchema = new Schema(
         password: {
             type: String,
             required: true,
+            match: [/^.{8,}$/, 'must be at least 8 characters']
         },
         posts: [{
             type: Schema.Types.ObjectId, ref: 'post'
