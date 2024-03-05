@@ -1,9 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* color variables */
 
 :root {
 	--white: white;
 	--lightWhite: rgb(255, 255, 255);
 	--lightGrey: #f9f9f9;
+	--grey: rgb(235, 231, 231);
 	--lilac: rgb(217, 170, 255);
 	--lightPink: rgb(253, 138, 219);
 	--lightBlue: rgb(121, 195, 255);
@@ -25,6 +30,7 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-text-size-adjust: 100%;
+	box-sizing: border-box;
 }
 
 /* a {
@@ -64,7 +70,7 @@ h1 {
 button {
 	border-radius: 8px;
 	border: 1px solid transparent;
-	padding: 0.6em 1.2em;
+	padding: 0.3em 0.4em;
 	font-size: 1em;
 	font-weight: 500;
 	font-family: inherit;
@@ -106,6 +112,7 @@ button:focus-visible {
 	display: flex;
 	justify-content: space-evenly;
 	flex-wrap: wrap;
+	margin-top: 2em;
 }
 
 .error {
@@ -125,8 +132,20 @@ button:focus-visible {
 	box-shadow: 0 0 15px 4px var(--blueShadow);
 }
 
+.sm-box-shadow {
+	box-shadow: 0 0 5px 1px var(--blueShadow);
+}
+
 .border-radius {
 	border-radius: 5px;
+}
+
+.grey-bg {
+	background-color: var(--grey);
+}
+
+.lt-grey-bg {
+	background-color: var(--lightGrey);
 }
 
 /* form style */
@@ -138,12 +157,13 @@ form {
 }
 
 input {
-	padding: 10px;
+	padding: 0.3em;
 	margin:10px 0;
 }
 
 textarea {
 	line-height: 1.5;
+	padding: 0.5em;
 }
 
 /* images for posts */
@@ -154,6 +174,20 @@ textarea {
 	height: auto;
 	max-width: 35%;
 	margin-bottom: 0px;
+}
+
+.comments-logo {
+	margin-bottom: 1em;
+}
+
+.comment-section {
+	width: 100%;
+	padding: 0.5em;
+	flex-direction: column;
+}
+
+.sm-bt-padding {
+	padding: 0.1em 0.2em;
 }
 
 /* image for creating post */

@@ -4,7 +4,18 @@ export const posts = [
         image: '/images/Stella-1.jpg',
         alt: 'afghan hound',
         caption: 'a divine being',
-        comments: 'what a regal soul'
+        comments: [
+            {
+                id: 1,
+                comment: 'what a regal soul',
+                username: 'Stella'
+            },
+            {
+                id: 2,
+                comment: 'lovely hair',
+                username: 'Athos'
+            },
+        ]
     },
     {
         id: 2,
