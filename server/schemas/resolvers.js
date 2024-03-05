@@ -30,6 +30,7 @@ const resolvers = {
     },
 
     Mutation: {
+        // User mutations
         login: async (_, { email, password }) => {
             const user = await User.findOne({ email });
             
@@ -72,6 +73,8 @@ const resolvers = {
             }
             throw new AuthenticationError('You need to be logged in!');
         },
+
+        // Post mutations
         createPost: async (_, args, context) => {
             if (context.user) {
                 const post = await Post.create({ ...args, user: context.user._id });
@@ -97,6 +100,8 @@ const resolvers = {
             }
             throw new AuthenticationError('You need to be logged in!');
         },
+
+        // Comment mutations
         createComment: async (_, { postId, ...args }, context) => {
             if (context.user) {
                 const updatedPost = await Post.findOneAndUpdate(

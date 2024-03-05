@@ -33,16 +33,19 @@ const typeDefs = `
     }
 
     type Mutation {
-        login(email: String!, password: String!): Auth
         
+        // User mutations
+        login(email: String!, password: String!): Auth
         createUser(username: String!, email: String!, password: String!): Auth
         editUser(username: String, email: String, password: String): User
         deleteUser(_id: ID!): User
 
+        // Post mutations
         createPost(caption: String, altText: String!, image: String!): Post
         editPost(_id: ID!, caption: String, altText: String, image: String): Post
         deletePost(_id: ID!): Post
 
+        // Comment mutations
         createComment(postId: ID!, commentText: String!): Comment
         editComment(_id: ID!, commentText: String!): Comment
         deleteComment(_id: ID!): Comment
