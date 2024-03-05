@@ -48,7 +48,7 @@ const Login = (props, { history }) => {
 
     return (
         <div>
-            <h2 className='text-align-center'>Login</h2>
+            <h2 className='text-align-center padding-two'>Login</h2>
             <section className=''>
                 <form  className='display-flex padding-two box-shadow'
                     onSubmit={handleFormSubmit}>
@@ -73,7 +73,7 @@ const Login = (props, { history }) => {
                     {loginError && 
                         <div className="error">{loginError}</div>}
                     <button
-                        className=""
+                        className="lt-grey-bg"
                         style={{ cursor: 'pointer' }}
                         type="submit"
                     >

@@ -66,8 +66,8 @@ const PostForm = () => {
 
     return (
         <>
-            <h2 className='text-align-center'> Create New Post</h2>
-            <form   className='display-flex padding-two box-shadow'
+            <h2 className='text-align-center pt-4 text-lg'> Create New Post</h2>
+            <form   className='display-flex padding-two box-shadow mt-5'
                     onSubmit={handleFormSubmit}>
                 <label>
                     Upload picture:
@@ -112,7 +112,7 @@ const PostForm = () => {
                     autoCorrect='on'>
                 </textarea>
                 <br />
-                <button type='submit'> Create Post</button>
+                <button className="lt-grey-bg" type='submit'> Create Post</button>
             </form>
         </>
     )
