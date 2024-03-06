@@ -12,8 +12,8 @@ export const QUERY_USER = gql`
 `;
 
 export const QUERY_USERS = gql`
-    query users($username: String) {
-        users(username: $username) {
+    query users($userId: String, $limit: Int, $offset: Int) {
+        users(userId: $userId, limit: $limit, offset: $offset) {
             _id
             username
         }
@@ -21,8 +21,8 @@ export const QUERY_USERS = gql`
 `;
 
 export const QUERY_POSTS = gql`
-    query posts($username: String) {
-        posts(username: $username) {
+    query posts($userId: String, $limit: Int, $offset: Int) {
+        posts(userId: $userId, limit: $limit, offset: $offset) {
             _id
             caption
             altText
@@ -44,8 +44,8 @@ export const QUERY_POSTS = gql`
 `;
 
 export const QUERY_COMMENTS = gql`
-    query comments($username: String) {
-        comments(username: $username) {
+    query comments($userId: String, $limit: Int, $offset: Int) {
+        comments(userId: $userId, limit: $limit, offset: $offset) {
             _id
             commentText
             user {

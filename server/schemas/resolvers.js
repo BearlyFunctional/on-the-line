@@ -6,22 +6,22 @@ const resolvers = {
         me: async (_, args, context) => {
             return User.findOne({ _id: context.user._id })
         },
-        users: async (_, { username, limit = 10, offset = 0 }) => {
-            const params = username ? { username } : {};
+        users: async (_, { userId, limit = 10, offset = 0 }) => {
+            const params = userId ? { "user": userId } : {};
             return User.find(params)
-                .sort({ username: -1 })
+                .sort({ _id: -1 })
                 .skip(offset)
                 .limit(limit);
         },
-        posts: async (_, { username, limit = 10, offset = 0 }) => {
-            const params = username ? { username } : {};
+        posts: async (_, { userId, limit = 10, offset = 0 }) => {
+            const params = userId ? { "user": userId } : {};
             return Post.find(params)
                 .sort({ createdAt: -1 })
                 .skip(offset)
                 .limit(limit);
         },
-        comments: async (_, { username, limit = 10, offset = 0  }) => {
-            const params = username ? { username } : {};
+        comments: async (_, { userId, limit = 10, offset = 0  }) => {
+            const params = userId ? { "user": userId } : {};
             return Comment.find(params)
                 .sort({ createdAt: -1 })
                 .skip(offset)
@@ -30,7 +30,6 @@ const resolvers = {
     },
 
     Mutation: {
-        // User mutations
         login: async (_, { email, password }) => {
             const user = await User.findOne({ email });
             
@@ -74,7 +73,6 @@ const resolvers = {
             throw new AuthenticationError('You need to be logged in!');
         },
 
-        // Post mutations
         createPost: async (_, args, context) => {
             if (context.user) {
                 const post = await Post.create({ ...args, user: context.user._id });
@@ -101,7 +99,6 @@ const resolvers = {
             throw new AuthenticationError('You need to be logged in!');
         },
 
-        // Comment mutations
         createComment: async (_, { postId, ...args }, context) => {
             if (context.user) {
                 const updatedPost = await Post.findOneAndUpdate(
