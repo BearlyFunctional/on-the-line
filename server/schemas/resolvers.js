@@ -29,8 +29,6 @@ const resolvers = {
         }
     },
     Mutation: {
-<<<<<<< HEAD
-=======
         login: async (_, { email, password }) => {
             const user = await User.findOne({ email });
             
@@ -48,7 +46,6 @@ const resolvers = {
             
             return { token, user };
         },
->>>>>>> cccc13d41842dcae86b54d5be6488ff14cbca3ae
         createUser: async (_, args) => {
 
             const user = await User.create(args);
@@ -68,12 +65,6 @@ const resolvers = {
             if (!correctPw) {
               throw AuthenticationError;
             }
-<<<<<<< HEAD
-      
-            const token = signToken(user);
-      
-            return { token, user };
-=======
             throw new AuthenticationError('You need to be logged in!');
         },
 
@@ -139,7 +130,6 @@ const resolvers = {
                 return updatedPost;
             }
             throw new AuthenticationError('You need to be logged in!');
->>>>>>> cccc13d41842dcae86b54d5be6488ff14cbca3ae
         }
     }
 }

@@ -114,12 +114,14 @@ export default function Comments({comments}) {
                                   <div className="flex items-center"></div>
                                 </div> */}
                                 <div className="flex-shrink-0">
-                                  <button
-                                    type="submit"
-                                    className="inline-flex items-center rounded-md bg-indigo-600 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                  >
-                                    Post
-                                  </button>
+                                    <small 
+                                        onClick={handleSave}
+                                        className='mr-4 sm-bt-padding'
+                                        > 
+                                            <button className='inline-flex items-center rounded-md bg-indigo-600 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' type='submit'>
+                                                save 
+                                            </button>
+                                    </small>
                                 </div>
                               </div>
                             </form>
@@ -143,12 +145,8 @@ export default function Comments({comments}) {
                             {Auth.getProfile().data.username === comment.username && (
                                 <>
                                     {selectedCommentId === comment.id ? (
-                                        <small 
-                                            onClick={handleSave}
-                                            className='mr-4 sm-bt-padding'
-                                            > 
-                                            <button className='inline-flex items-center rounded-md bg-indigo-600 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' type='submit'>save </button>
-                                        </small>
+                                        <div> placeholder for save</div>
+                                     
 
                                     ) : (
                                         <small 
