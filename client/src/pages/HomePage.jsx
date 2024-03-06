@@ -1,13 +1,19 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
 
 import Posts from '../components/Post';
 import { posts } from '../assets/data';
+// import { QUERY_ALL_POSTS } from '../utils/queries';
 
 import Auth from '../utils/auth';
 
 export default function HomePage () {
+
+    // const { loading, data } = useQuery(QUERY_ALL_POSTS);
+    // const posts = data?.posts || [];
+
     return ( 
         <>
             {Auth.loggedIn() ? (
@@ -40,7 +46,7 @@ export default function HomePage () {
                             </div>
                         </div>
                         <div>
-                            <h2 className='text-align-center'>Welcome!</h2>
+                            <h2 className='text-align-center padding-two'>Welcome!</h2>
                         </div>
                     </div>
                 )
