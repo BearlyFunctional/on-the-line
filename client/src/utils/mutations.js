@@ -23,3 +23,57 @@ export const LOGIN_USER = gql`
         }
     }
 `;
+
+export const EDIT_POST = gql`
+    mutation editPost($postId: ID!, $caption: String, $altText: String, $image: String) {
+        editPost(postId: $postId, caption: $caption, altText: $altText, image: $image) {
+            _id
+            caption
+            altText
+            image
+        }
+    }
+`;
+
+export const DELETE_POST = gql`
+    mutation deletePost($_id: ID!) {
+        deletePost(_id: $_id) {
+            _id
+        }
+    }
+`;
+
+// Comment mutations
+export const CREATE_COMMENT = gql`
+    mutation createComment($postId: ID!, $commentBody: String!) {
+        createComment(postId: $postId, content: $commentBody) {
+            _id
+            content
+            user {
+                _id
+                username
+            }
+            post {
+                _id
+                caption
+            }
+        }
+    }
+`;
+
+export const EDIT_COMMENT = gql`
+    mutation editComment($postId: String!, $commentId: String!, $commentBody: String!) {
+        editComment(postId: $postId, commentId: $commentId, commentBody: $commentBody) {
+            _id
+            commentBody
+        }
+    }
+`;
+
+export const DELETE_COMMENT = gql`
+    mutation deleteComment($postId: String!, $commentId: String!) {
+        deleteComment(postId: $postId, commentId: $commentId) {
+            _id
+        }
+    }
+`;
