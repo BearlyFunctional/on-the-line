@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Post, Comment } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -28,6 +28,7 @@ const resolvers = {
                 .limit(limit);
         }
     },
+
     Mutation: {
         login: async (_, { email, password }) => {
             const user = await User.findOne({ email });
@@ -50,20 +51,24 @@ const resolvers = {
 
             const user = await User.create(args);
             const token = signToken(user);
-      
+            
             return { token, user}
         },
-        login: async (_, { email, password }) => {
-            const user = await User.findOne({ email });
-      
-            if (!user) {
-              throw AuthenticationError;
+        editUser: async (_, { userId, ...args }, context) => {
+            if (context.user) {
+                const updatedUser = await User.findOneAndUpdate(
+                    { _id: userId ? userId : context.user._id },
+                    args,
+                    { new: true, runValidators: true }
+                );
+                return updatedUser;
             }
-      
-            const correctPw = await user.isCorrectPassword(password);
-      
-            if (!correctPw) {
-              throw AuthenticationError;
+            throw new AuthenticationError('You need to be logged in!');
+        },
+        deleteUser: async (_, { userId }, context) => {
+            if (context.user) {
+                const deletedUser = await User.findOneAndDelete({ _id: userId });
+                return deletedUser;
             }
             throw new AuthenticationError('You need to be logged in!');
         },

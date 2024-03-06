@@ -5,6 +5,20 @@ const typeDefs = `
         email: String!
         password: String!
     }
+    type Post {
+        _id: ID
+        caption: String
+        altText: String!
+        image: String!
+        user: User!
+        comments: [Comment]
+    }
+    type Comment {
+        _id: ID
+        commentText: String!
+        user: User!
+        post: Post!
+    }
 
     type Auth {
         token: ID!
@@ -13,6 +27,9 @@ const typeDefs = `
 
     type Query {
         me: User
+        users(username: String): [User]
+        posts(username: String): [Post]
+        comments(username: String): [Comment]
     }
 
     type Mutation {

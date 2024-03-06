@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
-// import { CREATE_POST } from '../../utils/mutations';
+// import { ADD_POST -check name} from '../../utils/mutations';
 
 const PostForm = () => {
 
@@ -15,7 +15,7 @@ const PostForm = () => {
     const [error, setError] = useState('');
     const [altTextError, setAltTextError] = useState('');
 
-    // const [ addPost, { error}] = useMutation(CREATE_POST);
+    // const [ addPost, { error}] = useMutation(ADD_POST--check name);
 
     const handleChange = (event) => {
         const { name, value, files } = event.target;

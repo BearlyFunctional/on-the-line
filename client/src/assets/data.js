@@ -4,7 +4,6 @@ export const posts = [
         image: '/images/Stella-1.jpg',
         alt: 'afghan hound',
         caption: 'a divine being',
-        username: 'Stella',
         comments: [
             {
                 id: 1,
@@ -23,7 +22,6 @@ export const posts = [
         image: '/images/Stella-2.jpg',
         alt: 'afghan hound',
         caption: 'a majestic soul',
-        username: 'Ivana',
         comments: ''
     },
     {
