@@ -74,8 +74,11 @@ const resolvers = {
         },
 
         createPost: async (_, args, context) => {
+
+            console.log(context.user)
+
             if (context.user) {
-                const post = await Post.create({ ...args, user: context.user._id });
+                const post = await Post.create({ ...args, user: context.user._id, comments: []});
                 return post;
             }
             throw new AuthenticationError('You need to be logged in!');
@@ -91,7 +94,7 @@ const resolvers = {
             }
             throw new AuthenticationError('You need to be logged in!');
         },
-        deletePost: async (_, { postId }, context) => {
+        deletePost: async (_, postId, context) => {
             if (context.user) {
                 const deletedPost = await Post.findOneAndDelete({ _id: postId, user: context.user._id });
                 return deletedPost;
@@ -99,18 +102,18 @@ const resolvers = {
             throw new AuthenticationError('You need to be logged in!');
         },
 
-        createComment: async (_, { postId, ...args }, context) => {
+        createComment: async (_, postId, commentBody, context) => {
             if (context.user) {
                 const updatedPost = await Post.findOneAndUpdate(
                     { _id: postId },
-                    { $push: { comments: { ...args, username: context.user.username } } },
+                    { $push: { comments: { content: commentBody, user: context.user } } },
                     { new: true, runValidators: true }
                 );
                 return updatedPost;
             }
             throw new AuthenticationError('You need to be logged in!');
         },
-        editComment: async (_, { postId, commentId, commentBody }, context) => {
+        editComment: async (_, postId, commentId, commentBody, context) => {
             if (context.user) {
                 const updatedPost = await Post.findOneAndUpdate(
                     { _id: postId, user: context.user._id },

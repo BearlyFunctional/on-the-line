@@ -45,7 +45,7 @@ export const DELETE_USER = gql`
 
 // Post mutations
 export const CREATE_POST = gql`
-    mutation createPost($caption: String, $altText: String!, $image: String!) {
+    mutation createPost($caption: String!, $altText: String!, $image: String) {
         createPost(caption: $caption, altText: $altText, image: $image) {
             _id
             caption
@@ -81,7 +81,7 @@ export const DELETE_POST = gql`
 // Comment mutations
 export const CREATE_COMMENT = gql`
     mutation createComment($postId: ID!, $commentBody: String!) {
-        createComment(postId: $postId, content: $commentBody) {
+        createComment(postId: $postId, commentBody: $commentBody) {
             _id
             content
             user {
