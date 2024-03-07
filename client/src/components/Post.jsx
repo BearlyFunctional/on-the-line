@@ -4,87 +4,40 @@ import { useState } from 'react';
 // import { useQuery, useMutation } from '@apollo/client';
 
 import Comments from './Comments';
+import CommentForm from './CommentForm';
+import CaptionForm from './CaptionForm';
 
-import { posts } from '../assets/data';
-// import { EDIT_POST, DELETE_POST, CREATE_COMMENT } from '../utils/mutations';
+// import { DELETE_POST } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 
 export default function Posts({post}) {
 
-    // const comments = comments?.posts || [];
-
-    // const [addComment, { error }] = useMutation(CREATE_COMMENT);
-    // const [updateCaption, { error }] = useMutation(EDIT_POST, {
-        // refetchQueries: [
-            // QUERY_ALL_POSTS,
-            // 'name-of-functions-in-resolvers'
-        // ]
-    // });
-
     const {comments} = post
+    // const postId = post._id
     console.log(post)
 
     const [showComments, setShowComments] = useState(false);
-    const [commentText, setCommentText] = useState('');
     const [editMode, setEditMode] = useState(false);
-    const [editedCaption, setEditedCaption] = useState(post.caption || '');
 
-    const handleEditToggle = () => {
+    const toggleCaption = () => {
         setEditMode(!editMode);
     };
-
-    const handleSaveCaptionChanges = async () => {
-        // Save changes logic here
-        // For example, call a mutation to update the post caption
-        setEditMode(false); // Exit edit mode
-    };
-
-    const handleCaptionChange = (e) => {
-        setEditedCaption(e.target.value);
-    };
-
-    // const handleFormSubmit = async (e) => {
-    //     e.preventDefault();
-
-    //     try {
-    //         const { data } = await addComment({
-    //             variables: {
-    //                 postId: post.id, //maybe
-    //                 content,
-    //                 username: Auth.getProfile().data.username,
-    //             }
-    //         });
-
-    //         setCommentText('');
-    //     } catch(err) {
-    //         console.log(err)
-    //     }
-    // }
-
-    const handleCommentChange = (e) => {
-        const { name, value } = e.target;
-
-        if(name === 'commentText') {
-            setCommentText(value);
-        }
-    }
 
     const toggleComments = () => {
         setShowComments(!showComments);
     };
 
     console.log(Auth.getProfile().data.username)
-    
 
     return (
-        <section className="box-shadow mb-5" key={post.id} data-id={post.id}> 
+        <section className="box-shadow mb-5" key={post._id} data-id={post._id}> 
             <div className=" p-4">
                 <div className="bg-white border rounded-sm max-w-md">
                     <div className="flex items-center px-4 py-2 justify-between">
-                    {/* <img className="h-8 w-8 rounded-full" src="https://picsum.photos/id/1027/150/150"/> */}
+                        {/* <img className="h-8 w-8 rounded-full" src="https://picsum.photos/id/1027/150/150"/> */}
                         <div className="ml-3 ">
-                            <span className="text-base font-semibold antialiased block leading-tight">{Auth.getProfile().data.username}'s post</span>
+                            <span className="text-base font-semibold antialiased block leading-tight">{post.username}'s post</span>
                             {/* <span className="text-gray-600 text-xs block">Asheville, North Carolina</span> */}
                         </div>
                         {Auth.getProfile().data.username === post.username && (
@@ -99,10 +52,10 @@ export default function Posts({post}) {
                                         </svg>
                                     </span>
                                     <div
-                                        className="absolute shadow-lg -bottom-24 right-0 w-full h-max p-2 bg-white border border-zinc-200 rounded-lg flex flex-col gap-2 w-20">
+                                        className="absolute shadow-lg -bottom-24 right-0 h-max p-2 bg-white border border-zinc-200 rounded-lg flex flex-col gap-2 w-20">
                                         <span className="flex flex-row gap-1 items-center hover:bg-zinc-100 p-1 rounded-lg">
                                             <p
-                                            onClick={handleEditToggle}>Edit</p>
+                                            onClick={toggleCaption}>Edit</p>
                                         </span>
                                         <span className="flex flex-row gap-1 items-center hover:bg-zinc-100 p-1 rounded-lg">
                                             <p>Delete</p>
@@ -116,18 +69,8 @@ export default function Posts({post}) {
                         <img src={post.image} alt={post.alt} />
                     </div>
                     {editMode ? (
-                        <div className=' p-2 grey-bg border-radius font-semibold text-base mx-4 mt-2 mb-4'>
-                            <textarea
-                                className='w-full border-radius'
-                                name="captionText"
-                                value={editedCaption}
-                                onChange={handleCaptionChange}
-                                >
-                            </textarea>
-                            <button type='submit'> save</button>
-                        </div>
+                        < CaptionForm postId={post._id} key={post._id}/>
                     ) : (
-
                         <div className="font-semibold text-base mx-4 mt-2 mb-4">
                             <h3>{post.caption ? post.caption : ''}</h3>
                         </div>
@@ -142,74 +85,8 @@ export default function Posts({post}) {
 
                             { showComments && ( 
                                 <div>
-                                    < Comments comments={comments} key={comments.id}/>
-                                    <form className='text-sm grey-bg flex border-radius sm-box-shadow mt-5'>
-                                        <div className='flex-col w-full'> 
-                                            <p className='font-semibold ml-3'>add comment:</p>
-                                            <div className="flex items-start space-x-4">
-       
-        <div className="p-2 min-w-0 flex-1">
-          <form action="#" className="relative">
-            <div className="bg-white overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
-              <label htmlFor="comment" className="sr-only">
-                Add your comment
-              </label>
-              <textarea
-                rows={3}
-                name="comment"
-                id="comment"
-                className="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                placeholder="Add your comment..."
-                defaultValue={""}
-              />
-
-              {/* Spacer element to match the height of the toolbar */}
-              <div className="py-2" aria-hidden="true">
-                {/* Matches height of button in toolbar (1px border + 36px content height) */}
-                <div className="py-px">
-                  <div className="h-9" />
-                </div>
-              </div>
-            </div>
-
-            <div className="absolute inset-x-0 bottom-0 flex justify-between py-2 pl-3 pr-2">
-              {/* <div className="flex items-center space-x-5">
-                <div className="flex items-center">
-                  <button
-                    type="button"
-                    className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
-                  >
-                    <span className="sr-only">Attach a file</span>
-                  </button>
-                </div>
-                <div className="flex items-center"></div>
-              </div> */}
-              <div className="flex-shrink-0">
-                <button
-                  type="submit"
-                  className="inline-flex items-center rounded-md bg-indigo-600 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  Post
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-                                            {/* <textarea 
-                                                className='ml-4 border-radius w-full'
-                                                name='commentText'
-                                                type="text"
-                                                value={commentText}
-                                                onChange={handleCommentChange}>
-                                            </textarea>
-                                            <small className='border-radius sm-box-shadow ml-4 sm-bt-padding'>
-                                                <button type='submit'>
-                                                    post comment
-                                                </button>
-                                            </small> */}
-                                        </div>
-                                    </form>
+                                    < Comments comments={comments} postId={post._id} key={comments._id}/>
+                                    < CommentForm postId={post._id} key={comments._id}/>
                                 </div>
                             )}
                         </div>
