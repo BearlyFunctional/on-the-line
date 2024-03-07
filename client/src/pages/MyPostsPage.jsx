@@ -10,10 +10,14 @@ import Auth from '../utils/auth';
 
 export default function MyPostsPage() {
 
-    // const { loading, data } = useQuery(QUERY_USER_POSTS);
+    // const { loading, data } = useQuery(QUERY_POSTS, {
+        // variables: {userId: username}
+    // });
     // const posts = data?.posts || [];
 
     const posts = [] // delete later, this is just so the page loads without error
+
+    // if (loading) return <h2>loading...</h2>
 
     return ( 
             <>
