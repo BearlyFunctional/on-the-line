@@ -43,6 +43,7 @@ const typeDefs = `
         # Working
         login(email: String!, password: String!): Auth
 
+
         # Working
         createUser(username: String!, email: String!, password: String!): Auth
 
@@ -50,14 +51,11 @@ const typeDefs = `
         editUser(username: String, email: String, password: String): User
         deleteUser(_id: ID!): User
 
-        # Imgs non functional
+
+        # All working aside from image uploading
         createPost(caption: String!, altText: String!, image: String): Post
-
-        # Not working
-        editPost(_id: ID!, caption: String, altText: String, image: String): Post
-
-        # Working
-        deletePost(_id: ID!): Post
+        editPost(postId: String!, caption: String, altText: String, image: String): Post
+        deletePost(postId: String!): Post
 
         # Not Working (Destructuring error)
         createComment(postId: ID!, commentBody: String!): Comment
