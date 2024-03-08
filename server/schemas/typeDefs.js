@@ -1,12 +1,16 @@
 const typeDefs = ` 
     type User {
         _id: ID
-        username: String
-        email: String
-        password: String
+        username: String!
+        email: String!
+        password: String!
     }
     type Post {
         _id: ID
+        caption: String!
+        altText: String!
+        image: String
+        user: User!
         caption: String
         altText: String
         image: String
@@ -20,7 +24,7 @@ const typeDefs = `
     }
 
     type Auth {
-        token: ID
+        token: ID!
         user: User
     }
 

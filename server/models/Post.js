@@ -12,7 +12,10 @@ const postSchema = new Schema(
             required: true,
         },
         image:  {
-            type: String,
+            type: String
+        },
+        user: {
+            type: Schema.Types.ObjectId, ref :'user'
         },
         user: { type: Schema.Types.ObjectId, ref :'user' },
         comments: [commentSchema],
