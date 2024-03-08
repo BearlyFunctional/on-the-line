@@ -4,7 +4,7 @@ const postSchema = new Schema(
     {
         caption: {
             type: String,
-            required: false,
+            required: true,
         },
         altText: {
             type: String,
@@ -14,8 +14,7 @@ const postSchema = new Schema(
             type: {
                 name: String,
                 data: Buffer
-            },
-            required: true
+            }
         },
         user: {
             type: Schema.Types.ObjectId, ref :'user'

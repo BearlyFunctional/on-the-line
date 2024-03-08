@@ -27,9 +27,9 @@ const typeDefs = `
 
     type Query {
         me: User
-        users(username: String): [User]
-        posts(username: String): [Post]
-        comments(username: String): [Comment]
+        users(userId: String): [User]
+        posts(userId: String): [Post]
+        comments(userId: String): [Comment]
     }
 
     type Mutation {
@@ -39,12 +39,12 @@ const typeDefs = `
         editUser(username: String, email: String, password: String): User
         deleteUser(_id: ID!): User
 
-        createPost(caption: String, altText: String!, image: String!): Post
+        createPost(caption: String!, altText: String!, image: String): Post
         editPost(_id: ID!, caption: String, altText: String, image: String): Post
         deletePost(_id: ID!): Post
 
-        createComment(postId: ID!, commentText: String!): Comment
-        editComment(_id: ID!, commentText: String!): Comment
+        createComment(postId: ID!, commentBody: String!): Comment
+        editComment(_id: ID!, commentBody: String!): Comment
         deleteComment(_id: ID!): Comment
     }
 `;
