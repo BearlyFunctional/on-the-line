@@ -30,10 +30,8 @@ const userSchema = new Schema(
     }
 );
 
-userSchema.virtual('comments', {
-    ref: 'comment',
-    localField: '_id',
-    foreignField: 'user',
+userSchema.virtual('postCount').get(function() {
+    return this.posts.length;
 });
 
 // hash user password

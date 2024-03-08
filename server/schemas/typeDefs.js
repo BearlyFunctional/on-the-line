@@ -1,26 +1,26 @@
 const typeDefs = ` 
     type User {
         _id: ID
-        username: String!
-        email: String!
-        password: String!
+        username: String
+        email: String
+        password: String
     }
     type Post {
         _id: ID
-        caption: String!
-        altText: String!
+        caption: String
+        altText: String
         image: String
-        user: User!
+        user: User
         comments: [Comment]
     }
     type Comment {
         _id: ID
-        commentText: String!
-        user: String!
+        content: String
+        user: String
     }
 
     type Auth {
-        token: ID!
+        token: ID
         user: User
     }
 
@@ -28,13 +28,13 @@ const typeDefs = `
         # Working
         me: User
 
-        # Single user not working
+        # Working
         users(userId: String): [User]
 
         # Working
         posts(userId: String): [Post]
 
-        # Unable to test
+        # Future Development
         comments(userId: String): [Comment]
     }
 
@@ -57,10 +57,10 @@ const typeDefs = `
         editPost(postId: String!, caption: String, altText: String, image: String): Post
         deletePost(postId: String!): Post
 
-        # Not Working (Destructuring error)
-        createComment(postId: ID!, commentBody: String!): Comment
-        editComment(_id: ID!, commentBody: String!): Comment
-        deleteComment(_id: ID!): Comment
+        # Working
+        createComment(postId: String!, commentBody: String!): Comment
+        editComment(postId: String!, commentId: String!, commentBody: String!): Comment
+        deleteComment(postId: String!, commentId: String!): Comment
     }
 `;
 

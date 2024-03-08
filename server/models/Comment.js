@@ -5,6 +5,4 @@ const commentSchema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: 'user' },
 });
 
-const Comment = model('comment', commentSchema);
-
-module.exports = Comment;
+module.exports = commentSchema;

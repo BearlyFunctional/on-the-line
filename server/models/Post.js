@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const commentSchema = require('./Comment');
 
 const postSchema = new Schema(
     {
@@ -17,7 +18,7 @@ const postSchema = new Schema(
             type: Schema.Types.ObjectId, ref :'user'
         },
         user: { type: Schema.Types.ObjectId, ref :'user' },
-        comments: [{ type: Schema.Types.ObjectId, ref: 'comment' }],
+        comments: [commentSchema],
     },
     {
         toJSON: {
