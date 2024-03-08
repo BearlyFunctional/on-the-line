@@ -27,10 +27,7 @@ export const QUERY_POSTS = gql`
             caption
             altText
             image
-            user {
-                _id
-                username
-            }
+            user
             comments {
                 _id
                 commentText
@@ -47,15 +44,8 @@ export const QUERY_COMMENTS = gql`
     query comments($userId: String, $limit: Int, $offset: Int) {
         comments(userId: $userId, limit: $limit, offset: $offset) {
             _id
-            commentText
-            user {
-                _id
-                username
-            }
-            post {
-                _id
-                caption
-            }
+            content
+            user
         }
     }
 `;

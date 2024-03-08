@@ -11,14 +11,9 @@ const postSchema = new Schema(
             required: true,
         },
         image:  {
-            type: {
-                name: String,
-                data: Buffer
-            }
+            type: String,
         },
-        user: {
-            type: Schema.Types.ObjectId, ref :'user'
-        },
+        user: { type: Schema.Types.ObjectId, ref :'user' },
         comments: [{ type: Schema.Types.ObjectId, ref: 'comment' }],
     },
     {
