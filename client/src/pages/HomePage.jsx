@@ -1,19 +1,27 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
 
 import Posts from '../components/Post';
 import { posts } from '../assets/data';
+// import { QUERY_POSTS } from '../utils/queries';
 
 import Auth from '../utils/auth';
 
 export default function HomePage () {
+
+    // const { loading, data } = useQuery(QUERY_POSTS);
+    // const posts = data?.posts || [];
+
+    // if (loading) return <h2>loading...</h2>
+
     return ( 
         <>
             {Auth.loggedIn() ? (
                     <div className='padding-two'>
                         {posts.map((post) => (
-                            < Posts post={post} key={post.id} />
+                            < Posts post={post} key={post._id} postId={post._id}/>
                         ))}
                     </div>
                 ) : ( 
@@ -40,7 +48,7 @@ export default function HomePage () {
                             </div>
                         </div>
                         <div>
-                            <h2 className='text-align-center'>Welcome!</h2>
+                            <h2 className='text-align-center padding-two'>Welcome!</h2>
                         </div>
                     </div>
                 )
