@@ -15,8 +15,16 @@ const resolvers = {
         },
         posts: async (_, { userId, limit = 10, offset = 0 }) => {
             const params = userId ? { "user": userId } : {};
-            return Post.find(params).populate('user')
-                .sort({ createdAt: -1 })
+            return Post.find(params)
+                .populate('user')
+                .populate({
+                    path: 'comments',
+                    populate: {
+                      path: 'user',
+                      select: 'username',
+                    },
+                  })
+                .sort({ createdAt: 1 })
                 .skip(offset)
                 .limit(limit);
         },

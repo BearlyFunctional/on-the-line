@@ -16,8 +16,13 @@ export default function Posts({post}) {
 
     const {comments} = post
     const postId = post._id
-    console.log(post)
+    // const commentId = comments[0]?._id || []
 
+    // console.log(commentId)
+
+    console.log(post)
+    console.log(comments)
+    
     const [showComments, setShowComments] = useState(false);
     const [editMode, setEditMode] = useState(false);
 
@@ -52,8 +57,6 @@ export default function Posts({post}) {
         }
     }
 
-    console.log(Auth.getProfile().data.username)
-
     return (
         <section className="box-shadow mb-5" key={post._id} data-id={post._id}> 
             <div className=" p-4">
@@ -61,7 +64,7 @@ export default function Posts({post}) {
                     <div className="flex items-center px-4 py-2 justify-between">
                         {/* <img className="h-8 w-8 rounded-full" src="https://picsum.photos/id/1027/150/150"/> */}
                         <div className="ml-3 ">
-                            <span className="text-base font-semibold antialiased block leading-tight">{post.username}'s post</span>
+                            <span className="text-base font-semibold antialiased block leading-tight">{post.user.username}'s post</span>
                             {/* <span className="text-gray-600 text-xs block">Asheville, North Carolina</span> */}
                         </div>
                         {Auth.getProfile().data.username === post.user.username && (
@@ -92,7 +95,7 @@ export default function Posts({post}) {
                         )}
                     </div>
                     <div className=''>
-                        <img src={post.image} alt={post.alt} />
+                        <img src={post.image} alt={post.altText} />
                     </div>
                     {editMode ? (
                         < CaptionForm postId={post._id} setEditMode={setEditMode} post={post} key={post._id}/>

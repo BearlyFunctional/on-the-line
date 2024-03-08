@@ -14,9 +14,9 @@ const postSchema = new Schema(
         image:  {
             type: String
         },
-        user: {
-            type: Schema.Types.ObjectId, ref :'user'
-        },
+        // user: {
+        //     type: Schema.Types.ObjectId, ref :'user'
+        // },
         user: { type: Schema.Types.ObjectId, ref :'user' },
         comments: [commentSchema],
     },

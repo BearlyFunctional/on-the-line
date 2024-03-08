@@ -20,15 +20,9 @@ export default function CaptionForm ({ postId, post, setEditMode }) {
         (EDIT_POST, {
             refetchQueries: [
                 QUERY_POSTS, 
-                
-                // for now, may tweak later
-
-                // not sure what, plz help 
-                // do i need a query for a single post?
-                // i feel like that would make most sense
-                // if so need to create query
             ]
     });
+    
     if(error) {console.log(error)}
 
     const handleCaptionFormChanges = async (e) => {
@@ -38,10 +32,10 @@ export default function CaptionForm ({ postId, post, setEditMode }) {
             const { data } = await updateCaption({
                 variables: {
                     postId, 
-                    caption: editedCaption // maybe?
+                    caption: editedCaption 
                 }
             })  
-            setEditMode(false); // Exit edit mode
+            setEditMode(false); 
         } catch (err) {
             console.log(err)
         }

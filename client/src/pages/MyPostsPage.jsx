@@ -10,7 +10,6 @@ import Auth from '../utils/auth';
 
 export default function MyPostsPage() {
 
-
     console.log(Auth.getProfile().data)
     const { loading, data } = useQuery(QUERY_POSTS, {
         variables: {userId: Auth.getProfile().data._id}
@@ -25,7 +24,9 @@ export default function MyPostsPage() {
                 {Auth.loggedIn() ? (
                         <div className='padding-two'>
                             {posts.map((post) => (
-                                < Posts post={post} key={post.id} />
+                                <div key={post._id}>
+                                    < Posts post={post} key={post._id} />
+                                </div>
                             ))}
                         </div>
                     ) : ( 
