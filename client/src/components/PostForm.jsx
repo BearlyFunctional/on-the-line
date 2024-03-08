@@ -2,20 +2,20 @@ import React from 'react';
 
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
-// import { CREATE_POST } from '../../utils/mutations';
+import { CREATE_POST } from '../utils/mutations';
 
 const PostForm = () => {
 
     const [formState, setFormState] = useState({
-        postImage: '',
-        postAltText: '',
-        postCaption: '',
+        // postImage: '',
+        altText: '',
+        caption: '',
     });
 
-    const [error, setError] = useState('');
+    const [errors, setErrors] = useState('');
     const [altTextError, setAltTextError] = useState('');
 
-    // const [ addPost, { error}] = useMutation(CREATE_POST);
+    const [ addPost, { error}] = useMutation(CREATE_POST);
 
     const handleChange = (event) => {
         const { name, value, files } = event.target;
@@ -23,16 +23,16 @@ const PostForm = () => {
         if (files) {
             setFormState({...formState, [name]: files[0]})
         } else if (name === 'postImage' 
-                || name === 'postCaption'
-                || name === 'postAltText') {
+                || name === 'caption'
+                || name === 'altText') {
             setFormState({ ...formState, [name]: value });
         }
     };
 
     const handleAltTextBlur = () => {
-        if (!formState.postAltText) {
+        if (!formState.altText) {
             setAltTextError('* alternative text is required');
-        } else if (!/^.{20,}$/.test(formState.postAltText)) {
+        } else if (!/^.{20,}$/.test(formState.altText)) {
             setAltTextError('* must contain at least 20 characters');
         } else {
             setAltTextError('');
@@ -42,10 +42,10 @@ const PostForm = () => {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
-        if(!formState.postImage) {
-            setError('* please upload an image');
-            return;
-        }
+        // if(!formState.postImage) {
+        //     setErrors('* please upload an image');
+        //     return;
+        // }
     
         try {
             const { data } = await addPost({
@@ -82,17 +82,17 @@ const PostForm = () => {
                 {formState.postImage && (
                     <img 
                         src={URL.createObjectURL(formState.postImage)} 
-                        alt={formState.postAltText} 
+                        alt={formState.altText} 
                     />
                 )}
-                {error && <p className='error'>{error}</p>}
+                {errors && <p className='error'>{errors}</p>}
                 {/* <br /> */}
                 <label>Enter image's alternative text:</label>
                 <textarea 
                     className='border-radius box-shadow'
-                    name="postAltText"
+                    name="altText"
                     placeholder='alternative text'
-                    value={formState.postAltText}
+                    value={formState.altText}
                     onChange={handleChange}
                     onInput={handleInput}
                     onBlur={handleAltTextBlur}
@@ -104,9 +104,9 @@ const PostForm = () => {
                 <label>Enter caption below:</label>
                 <textarea 
                     className='border-radius box-shadow'
-                    name="postCaption"
+                    name="caption"
                     placeholder='caption'
-                    value={formState.postCaption}
+                    value={formState.caption}
                     onChange={handleChange}
                     onInput={handleInput}
                     autoCorrect='on'>

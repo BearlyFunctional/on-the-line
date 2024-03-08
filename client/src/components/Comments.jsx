@@ -3,6 +3,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 
+// import { QUERY_COMMENTS } from '../utils/queries';
 // import { EDIT_COMMENT, DELETE_COMMENT } from '../utils/mutations';
 import Auth from '../utils/auth';
 
@@ -22,19 +23,24 @@ export default function Comments({comments, postId}) {
         setEditComment(e.target.value);
     };
 
-    // const [removeComment, {error}] = useMutation(DELETE_COMMENT, {
-    //     //maybe
-    //     refetchQueries: [
-        // not sure what to query 
-    //         QUERY_SOMETHING, 
-    //         'name-of-function-in-resolvers'
-    //     ]
-    // });
+    // const [removeComment, {error}] = useMutation(
+    //     DELETE_COMMENT, {
+    //         refetchQueries: [
+    //             {
+    //                 QUERY_POSTS, 
+    //                 
+    //             }
+    //         ]
+    //     }
+    // );
 
     // const handleRemoveComment = async (comment) => {
     //     try {
     //         const { data } = await removeComment({
-    //             variables: { comment }
+    //             variables: { 
+                        // postId,
+                        // selectedCommentedId
+    // }
     //         });
     //     } catch(err) {
     //         console.log(err)

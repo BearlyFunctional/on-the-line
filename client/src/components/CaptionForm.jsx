@@ -13,10 +13,15 @@ export default function CaptionForm ({ postId }) {
         setEditedCaption(e.target.value);
     };
 
-     // const [updateCaption, { error }] = useMutation
+    // const [updateCaption, { error }] = useMutation
         // (EDIT_POST, {
             // refetchQueries: [
+                // QUERY_POSTS, for now, may tweak later
+
                 //not sure what, plz help 
+                //do i need a query for a single post?
+                // i feel like that would make most sense
+                // if so need to create query
             // ]
     // });
 

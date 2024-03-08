@@ -85,8 +85,8 @@ export default function Posts({post}) {
 
                             { showComments && ( 
                                 <div>
-                                    < Comments comments={comments} postId={post._id} key={comments._id}/>
-                                    < CommentForm postId={post._id} key={comments._id}/>
+                                    < Comments comments={comments} postId={post._id} />
+                                    < CommentForm postId={post._id} />
                                 </div>
                             )}
                         </div>
