@@ -51,10 +51,7 @@ export const CREATE_POST = gql`
             caption
             altText
             image
-            user {
-                _id
-                username
-            }
+            user
         }
     }
 `;
@@ -66,6 +63,7 @@ export const EDIT_POST = gql`
             caption
             altText
             image
+            user
         }
     }
 `;
@@ -84,14 +82,7 @@ export const CREATE_COMMENT = gql`
         createComment(postId: $postId, commentBody: $commentBody) {
             _id
             content
-            user {
-                _id
-                username
-            }
-            post {
-                _id
-                caption
-            }
+            user
         }
     }
 `;
@@ -100,7 +91,8 @@ export const EDIT_COMMENT = gql`
     mutation editComment($postId: String!, $commentId: String!, $commentBody: String!) {
         editComment(postId: $postId, commentId: $commentId, commentBody: $commentBody) {
             _id
-            commentBody
+            content
+            user
         }
     }
 `;

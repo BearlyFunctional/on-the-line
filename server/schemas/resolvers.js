@@ -102,18 +102,18 @@ const resolvers = {
             throw new AuthenticationError('You need to be logged in!');
         },
 
-        createComment: async (_, postId, commentBody, context) => {
+        createComment: async (_, { postId, commentBody }, context) => {
             if (context.user) {
                 const updatedPost = await Post.findOneAndUpdate(
                     { _id: postId },
-                    { $push: { comments: { content: commentBody, user: context.user } } },
+                    { $push: { comments: { content: commentBody, user: context.user._id } } },
                     { new: true, runValidators: true }
                 );
                 return updatedPost;
             }
             throw new AuthenticationError('You need to be logged in!');
         },
-        editComment: async (_, postId, commentId, commentBody, context) => {
+        editComment: async (_, { postId, commentId, commentBody }, context) => {
             if (context.user) {
                 const updatedPost = await Post.findOneAndUpdate(
                     { _id: postId, user: context.user._id },
