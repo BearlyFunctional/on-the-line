@@ -4,20 +4,21 @@ import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
 import Posts from '../components/Post';
-// import { QUERY_USER_POSTS } from '../utils/queries';
+import { QUERY_POSTS } from '../utils/queries';
 
 import Auth from '../utils/auth';
 
 export default function MyPostsPage() {
 
-    // const { loading, data } = useQuery(QUERY_POSTS, {
-        // variables: {userId: username}
-    // });
-    // const posts = data?.posts || [];
 
-    const posts = [] // delete later, this is just so the page loads without error
+    console.log(Auth.getProfile().data)
+    const { loading, data } = useQuery(QUERY_POSTS, {
+        variables: {userId: Auth.getProfile().data._id}
+    });
 
-    // if (loading) return <h2>loading...</h2>
+    const posts = data?.posts || [];
+
+    if (loading) return <h2>loading...</h2>
 
     return ( 
             <>

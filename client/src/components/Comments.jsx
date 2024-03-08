@@ -26,10 +26,8 @@ export default function Comments({comments, postId}) {
     // const [removeComment, {error}] = useMutation(
     //     DELETE_COMMENT, {
     //         refetchQueries: [
-    //             {
-    //                 QUERY_POSTS, 
-    //                 
-    //             }
+    //             QUERY_POSTS, //tentative
+    //             'posts'    
     //         ]
     //     }
     // );
@@ -51,7 +49,7 @@ export default function Comments({comments, postId}) {
     //     refetchQueries: [
             //not sure what to query 
     //         QUERY_ALL_POSTS,
-    //         'name-of-function-in-resolvers'
+    //         'posts'
     //     ]
     // });
 

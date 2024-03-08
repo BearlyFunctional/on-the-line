@@ -1,20 +1,21 @@
 import React from 'react';
 
 import { useState } from 'react';
-// import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 
 import Comments from './Comments';
 import CommentForm from './CommentForm';
 import CaptionForm from './CaptionForm';
 
-// import { DELETE_POST } from '../utils/mutations';
+import { QUERY_POSTS } from '../utils/queries';
+import { DELETE_POST } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 
 export default function Posts({post}) {
 
     const {comments} = post
-    // const postId = post._id
+    const postId = post._id
     console.log(post)
 
     const [showComments, setShowComments] = useState(false);
@@ -28,6 +29,29 @@ export default function Posts({post}) {
         setShowComments(!showComments);
     };
 
+    const [deletePost, {error}] = useMutation(
+        DELETE_POST, {
+            refetchQueries: [
+                QUERY_POSTS, //tentative
+                   
+            ]
+        }
+    );
+
+    if(error) console.log(error)
+
+    const handleDeletePost = async() => {
+       try {
+            const { data } = await deletePost({
+                variables: { 
+                    _id: postId,
+            }
+            });
+        } catch(err) {
+            console.log(err)
+        }
+    }
+
     console.log(Auth.getProfile().data.username)
 
     return (
@@ -40,7 +64,7 @@ export default function Posts({post}) {
                             <span className="text-base font-semibold antialiased block leading-tight">{post.username}'s post</span>
                             {/* <span className="text-gray-600 text-xs block">Asheville, North Carolina</span> */}
                         </div>
-                        {Auth.getProfile().data.username === post.username && (
+                        {Auth.getProfile().data.username === post.user.username && (
                             <main className="text-zinc-700 flex items-center justify-center">
                                 <button
                                   className="relative group transition-all duration-200 focus:overflow-visible w-max h-max p-2 overflow-hidden flex flex-row items-center justify-center bg-white gap-2 rounded-lg border">
@@ -57,7 +81,9 @@ export default function Posts({post}) {
                                             <p
                                             onClick={toggleCaption}>Edit</p>
                                         </span>
-                                        <span className="flex flex-row gap-1 items-center hover:bg-zinc-100 p-1 rounded-lg">
+                                        <span 
+                                            onClick={handleDeletePost}
+                                            className="flex flex-row gap-1 items-center hover:bg-zinc-100 p-1 rounded-lg">
                                             <p>Delete</p>
                                     </span>
                                   </div>
@@ -69,7 +95,7 @@ export default function Posts({post}) {
                         <img src={post.image} alt={post.alt} />
                     </div>
                     {editMode ? (
-                        < CaptionForm postId={post._id} key={post._id}/>
+                        < CaptionForm postId={post._id} setEditMode={setEditMode} post={post} key={post._id}/>
                     ) : (
                         <div className="font-semibold text-base mx-4 mt-2 mb-4">
                             <h3>{post.caption ? post.caption : ''}</h3>

@@ -51,26 +51,23 @@ export const CREATE_POST = gql`
             caption
             altText
             image
-            user
         }
     }
 `;
 
 export const EDIT_POST = gql`
-    mutation editPost($postId: ID!, $caption: String, $altText: String, $image: String) {
-        editPost(postId: $postId, caption: $caption, altText: $altText, image: $image) {
+    mutation editPost($postId: String!, $caption: String, $altText: String) {
+        editPost(postId: $postId, caption: $caption, altText: $altText) {
             _id
             caption
             altText
-            image
-            user
         }
     }
 `;
 
 export const DELETE_POST = gql`
-    mutation deletePost($_id: ID!) {
-        deletePost(_id: $_id) {
+    mutation deletePost($_id: String!) {
+        deletePost(postId: $_id) {
             _id
         }
     }
@@ -82,7 +79,6 @@ export const CREATE_COMMENT = gql`
         createComment(postId: $postId, commentBody: $commentBody) {
             _id
             content
-            user
         }
     }
 `;
@@ -92,7 +88,6 @@ export const EDIT_COMMENT = gql`
         editComment(postId: $postId, commentId: $commentId, commentBody: $commentBody) {
             _id
             content
-            user
         }
     }
 `;

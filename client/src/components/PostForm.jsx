@@ -15,7 +15,8 @@ const PostForm = () => {
     const [errors, setErrors] = useState('');
     const [altTextError, setAltTextError] = useState('');
 
-    const [ addPost, { error}] = useMutation(CREATE_POST);
+    const [ createPost, { error}] = useMutation(CREATE_POST);
+    if(error) { console.log(error)}
 
     const handleChange = (event) => {
         const { name, value, files } = event.target;
@@ -46,14 +47,20 @@ const PostForm = () => {
         //     setErrors('* please upload an image');
         //     return;
         // }
+        console.log('form state:')
+        console.log(formState)
     
         try {
-            const { data } = await addPost({
-                variables: {...formState}
+            const { data } = await createPost({
+                variables: {
+                    caption: formState.caption,
+                    altText: formState.altText
+                }
             })
-    
+            
             window.location.href = '/'
         } catch (err) {
+            console.log('i am the error, look at me:')
             console.error(err);
             // maybe add an alert so user can see it too 
         }
