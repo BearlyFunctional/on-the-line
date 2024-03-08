@@ -29,7 +29,7 @@ export const QUERY_POSTS = gql`
             image
             comments {
                 _id
-                commentText
+                content
             }
             user {
                 _id
