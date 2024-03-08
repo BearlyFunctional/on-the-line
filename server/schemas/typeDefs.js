@@ -7,10 +7,10 @@ const typeDefs = `
     }
     type Post {
         _id: ID
-        caption: String
+        caption: String!
         altText: String!
-        image: String!
-        user: String!
+        image: String
+        user: User!
         comments: [Comment]
     }
     type Comment {

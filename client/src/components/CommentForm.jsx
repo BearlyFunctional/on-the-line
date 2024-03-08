@@ -3,7 +3,8 @@ import React from 'react';
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
-import { CREATE_COMMENT } from '../utils/mutations';
+// import { CREATE_COMMENT } from '../utils/mutations';
+// import { QUERY_COMMENTS } from '../utils/queries';
 
 export default function CommentForm ({ postId }) {
 
@@ -16,7 +17,9 @@ export default function CommentForm ({ postId }) {
     // const [createComment, { error }] = useMutation
     //     (CREATE_COMMENT, {
     //         refetchQueries: [
-    //             // what do i refetch here
+    //             {
+    //                 QUERY_POST tentative
+    //             }
     //         ]
     // });
 
@@ -28,7 +31,6 @@ export default function CommentForm ({ postId }) {
     //             variables: {
     //                 postId, 
     //                 commentBody,
-    //                 username: Auth.getProfile().data.username, 
     //             }
     //         });
 

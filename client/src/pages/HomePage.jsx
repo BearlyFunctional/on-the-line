@@ -5,16 +5,17 @@ import { useQuery } from '@apollo/client';
 
 import Posts from '../components/Post';
 import { posts } from '../assets/data';
-// import { QUERY_POSTS } from '../utils/queries';
+import { QUERY_POSTS } from '../utils/queries';
 
 import Auth from '../utils/auth';
 
 export default function HomePage () {
 
-    // const { loading, data } = useQuery(QUERY_POSTS);
-    // const posts = data?.posts || [];
+    const { loading, data, error } = useQuery(QUERY_POSTS);
+    if (error) {console.log(error)}
+    const posts = data?.posts || [];
 
-    // if (loading) return <h2>loading...</h2>
+    if (loading) return <h2>loading...</h2>
 
     return ( 
         <>

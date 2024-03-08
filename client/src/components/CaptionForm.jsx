@@ -3,9 +3,12 @@ import React from 'react';
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
+import { QUERY_POSTS } from '../utils/queries';
 import { EDIT_POST } from '../utils/mutations';
 
-export default function CaptionForm ({ postId }) {
+export default function CaptionForm ({ postId, post, setEditMode }) {
+
+    console.log(post)
 
     const [editedCaption, setEditedCaption] = useState(post.caption || '');
 
@@ -13,28 +16,36 @@ export default function CaptionForm ({ postId }) {
         setEditedCaption(e.target.value);
     };
 
-     // const [updateCaption, { error }] = useMutation
-        // (EDIT_POST, {
-            // refetchQueries: [
-                //not sure what, plz help 
-            // ]
-    // });
+    const [updateCaption, { error }] = useMutation
+        (EDIT_POST, {
+            refetchQueries: [
+                QUERY_POSTS, 
+                
+                // for now, may tweak later
 
-    // const handleCaptionFormChanges = async (e) => {
-    //     e.preventDefault();
+                // not sure what, plz help 
+                // do i need a query for a single post?
+                // i feel like that would make most sense
+                // if so need to create query
+            ]
+    });
+    if(error) {console.log(error)}
+
+    const handleCaptionFormChanges = async (e) => {
+        e.preventDefault();
         
-    //     try { 
-    //         const { data } = await updateCaption({
-    //             variables: {
-    //                 postId, 
-    //                 caption: editedCaption // maybe?
-    //             }
-    //         })  
-    //         setEditMode(false); // Exit edit mode
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    // };
+        try { 
+            const { data } = await updateCaption({
+                variables: {
+                    postId, 
+                    caption: editedCaption // maybe?
+                }
+            })  
+            setEditMode(false); // Exit edit mode
+        } catch (err) {
+            console.log(err)
+        }
+    };
 
     return (
         <form className='text-sm grey-bg flex border-radius sm-box-shadow mt-5 ml-3'>
