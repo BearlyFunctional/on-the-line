@@ -1,4 +1,4 @@
-const { User, Post, Comment } = require('../models');
+const { User, Post } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -7,7 +7,7 @@ const resolvers = {
             return User.findOne({ _id: context.user._id })
         },
         users: async (_, { userId, limit = 10, offset = 0 }) => {
-            const params = userId ? { "user": userId } : {};
+            const params = userId ? { "_id": userId } : {};
             return User.find(params)
                 .sort({ _id: -1 })
                 .skip(offset)
@@ -20,13 +20,15 @@ const resolvers = {
                 .skip(offset)
                 .limit(limit);
         },
-        comments: async (_, { userId, limit = 10, offset = 0  }) => {
-            const params = userId ? { "user": userId } : {};
-            return Comment.find(params)
-                .sort({ createdAt: -1 })
-                .skip(offset)
-                .limit(limit);
-        }
+
+        // For future development
+        // comments: async (_, { userId, limit = 10, offset = 0  }) => {
+        //     const params = userId ? { "user": userId } : {};
+        //     return Post.find(params)
+        //         .sort({ createdAt: -1 })
+        //         .skip(offset)
+        //         .limit(limit);
+        // }
     },
 
     Mutation: {
@@ -117,7 +119,7 @@ const resolvers = {
             if (context.user) {
                 const updatedPost = await Post.findOneAndUpdate(
                     { _id: postId, user: context.user._id },
-                    { $set: { "comments.$[elem].commentBody": commentBody } },
+                    { $set: { "comments.$[elem].content": commentBody } },
                     { 
                         arrayFilters: [ { "elem._id": commentId } ], 
                         new: true, 

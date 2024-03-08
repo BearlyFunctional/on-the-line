@@ -30,11 +30,8 @@ export const QUERY_POSTS = gql`
             user
             comments {
                 _id
-                commentText
-                user {
-                    _id
-                    username
-                }
+                content
+                user
             }
         }
     }
