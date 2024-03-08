@@ -3,8 +3,8 @@ import React from 'react';
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
-// import { CREATE_COMMENT } from '../utils/mutations';
-// import { QUERY_COMMENTS } from '../utils/queries';
+import { CREATE_COMMENT } from '../utils/mutations';
+import { QUERY_POSTS } from '../utils/queries';
 
 export default function CommentForm ({ postId }) {
 
@@ -14,31 +14,31 @@ export default function CommentForm ({ postId }) {
         setCommentBody(e.target.value);
     };
 
-    // const [createComment, { error }] = useMutation
-    //     (CREATE_COMMENT, {
-    //         refetchQueries: [
-    //             {
-    //                 QUERY_POST tentative
-    //             }
-    //         ]
-    // });
+    const [createComment, { error }] = useMutation
+        (CREATE_COMMENT, {
+            refetchQueries: [
+                    QUERY_POSTS
+            ]
+    });
 
-    // const handleCommentFormSubmit = async (e) => {
-    //     e.preventDefault();
+    if(error) console.log(error)
 
-    //     try {
-    //         const { data } = await createComment({
-    //             variables: {
-    //                 postId, 
-    //                 commentBody,
-    //             }
-    //         });
+    const handleCommentFormSubmit = async (e) => {
+        e.preventDefault();
 
-    //         setCommentText('');
-    //     } catch(err) {
-    //         console.log(err)
-    //     }
-    // }
+        try {
+            const { data } = await createComment({
+                variables: {
+                    postId, 
+                    commentBody,
+                }
+            });
+
+            setCommentBody('');
+        } catch(err) {
+            console.log(err)
+        }
+    }
 
     return (
         <form className='text-sm grey-bg flex border-radius sm-box-shadow mt-5'>
@@ -82,8 +82,9 @@ export default function CommentForm ({ postId }) {
                                 </div> */}
                                 <div className="flex-shrink-0">
                                     <button
-                                    type="submit"
-                                    className="inline-flex items-center rounded-md bg-indigo-600 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                        onClick={handleCommentFormSubmit}
+                                        type="submit"
+                                        className="inline-flex items-center rounded-md bg-indigo-600 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                     >
                                     Post
                                     </button>

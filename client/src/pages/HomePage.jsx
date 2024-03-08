@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
 import Posts from '../components/Post';
-import { posts } from '../assets/data';
 import { QUERY_POSTS } from '../utils/queries';
 
 import Auth from '../utils/auth';

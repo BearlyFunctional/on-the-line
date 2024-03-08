@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { useState } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
-// import { QUERY_COMMENTS } from '../utils/queries';
-// import { EDIT_COMMENT, DELETE_COMMENT } from '../utils/mutations';
+import { QUERY_POSTS } from '../utils/queries';
+import { EDIT_COMMENT, DELETE_COMMENT } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 export default function Comments({comments, postId}) {
@@ -23,47 +23,48 @@ export default function Comments({comments, postId}) {
         setEditComment(e.target.value);
     };
 
-    // const [removeComment, {error}] = useMutation(
-    //     DELETE_COMMENT, {
-    //         refetchQueries: [
-    //             QUERY_POSTS, //tentative
-    //             'posts'    
-    //         ]
-    //     }
-    // );
+    const [removeComment, {error}] = useMutation(
+        DELETE_COMMENT, {
+            refetchQueries: [
+                QUERY_POSTS,  
+            ]
+        }
+    );
 
-    // const handleRemoveComment = async (comment) => {
-    //     try {
-    //         const { data } = await removeComment({
-    //             variables: { 
-                        // postId,
-                        // selectedCommentedId
-    // }
-    //         });
-    //     } catch(err) {
-    //         console.log(err)
-    //     }
-    // }
+    if (error) console.log(error)
 
-    // const [updateComment, { error } ] = useMutation(EDIT_COMMENT, {
-    //     refetchQueries: [
-            //not sure what to query 
-    //         QUERY_ALL_POSTS,
-    //         'posts'
-    //     ]
-    // });
+    const handleRemoveComment = async (id) => {
+        try {
+            const { data } = await removeComment({
+                variables: { 
+                        postId,
+                        commentId: id
+                }
+            });
+        } catch(err) {
+            console.log(err)
+        }
+    }
 
-    const handleEditCommentForm = async (e, commentId) => {
+    const [updateComment, { error2 } ] = useMutation
+        (EDIT_COMMENT, {
+            refetchQueries: [
+                QUERY_POSTS,
+            ]
+        }
+    );
+
+    const handleEditCommentForm = async (e) => {
         e.preventDefault();
 
         try {
-            // const { data } = await updateComment({
-            //     variables: {
-            //         postId,
-            //         commentId,
-            //         commentBody: editComment // maybe?
-            //     }
-            // })
+            const { data } = await updateComment({
+                variables: {
+                    postId,
+                    commentId: selectedCommentId,
+                    commentBody: editComment 
+                }
+            })
 
             setSelectedCommentId(null);  
             setOnEditMode(false)
@@ -75,14 +76,14 @@ export default function Comments({comments, postId}) {
     return (
         <div className=""> 
             <div>
-                { Array.isArray(comments) && comments.map(comment => (
+                { Array.isArray(comments) && comments.map((comment, i) => (
                     <div 
-                        key={comment._id} 
-                        data-id={comment._id} 
+                        key={comments[i]._id} 
+                        data-id={comments[i]._id} 
                         className='grey-bg border-radius padding comment-section display-flex mb-2 sm-box-shadow'
                         >
                         <p className='text-sm font-semibold pb-2'> 
-                            comment's username:
+                            {comments[i].user.username}
                         </p>
                         {selectedCommentId === comment._id ? (
                             <div className="min-w-0 flex-1"> 
@@ -135,18 +136,18 @@ export default function Comments({comments, postId}) {
                             </div>
                         ) : (
                             <div className='text-sm p-1 pb-3'>
-                                {comment.comment}
+                                {comments[i].content}
                             </div>
                         )}
 
                         <div className='justify-between'>
-                            {Auth.getProfile().data.username === comment.username && (
+                            {Auth.getProfile().data.username === comments[i].user.username && (
                                 <>
                                     {selectedCommentId === comment._id ? (
                                         <div></div>
                                         ) : (
                                         <small 
-                                            onClick={() => handleEdit(comment._id, comment.comment)}
+                                            onClick={() => handleEdit(comments[i]._id, comments[i].content)}
                                             className='mr-4 sm-bt-padding'
                                             > 
                                             <button className='inline-flex items-center rounded-md bg-indigo-600 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' 
@@ -162,7 +163,7 @@ export default function Comments({comments, postId}) {
                                             <button 
                                                 className='delete-comment inline-flex items-center rounded-md bg-indigo-600 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' 
                                                 type='submit' 
-                                                // onClick={() => handleRemoveComment(comment)}
+                                                onClick={() => handleRemoveComment(comments[i]._id)}
                                                 >
                                                     Delete
                                             </button>

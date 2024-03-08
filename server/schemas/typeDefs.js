@@ -16,7 +16,8 @@ const typeDefs = `
     type Comment {
         _id: ID
         content: String
-        user: String
+        # user: String
+        user: User
     }
 
     type Auth {
