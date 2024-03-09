@@ -21,23 +21,34 @@ export const QUERY_USERS = gql`
 `;
 
 export const QUERY_POSTS = gql`
-    query posts($userId: String) {
-        posts(userId: $userId) {
-            _id
-            caption
-            altText
-            image
-            comments {
+    query posts($userId: String, $page: Int) {
+        posts(userId: $userId, page: $page) {
+            totalPages
+            totalDocs
+            prevPage
+            pagingCounter
+            page
+            nextPage
+            limit
+            hasPrevPage
+            hasNextPage
+            docs {
                 _id
-                content
+                caption
+                altText
+                image
+                comments {
+                    _id
+                    content
+                    user {
+                        _id
+                        username
+                    }
+                }
                 user {
                     _id
                     username
                 }
-            }
-            user {
-                _id
-                username
             }
         }
     }

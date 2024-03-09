@@ -12,6 +12,7 @@ const typeDefs = `
         image: String
         user: User
         comments: [Comment]
+        createdAt: String
     }
     type Comment {
         _id: ID
@@ -25,6 +26,19 @@ const typeDefs = `
         user: User
     }
 
+    type PaginatedPost {
+        docs: [Post]
+        totalDocs: Int
+        limit: Int
+        page: Int
+        totalPages: Int
+        hasNextPage: Boolean
+        nextPage: Int
+        hasPrevPage: Boolean
+        prevPage: Int
+        pagingCounter: Int
+    }
+
     type Query {
         # Working
         me: User
@@ -33,7 +47,7 @@ const typeDefs = `
         users(userId: String): [User]
 
         # Working
-        posts(userId: String): [Post]
+        posts(userId: String, page:Int): PaginatedPost
 
         # Future Development
         comments(userId: String): [Comment]

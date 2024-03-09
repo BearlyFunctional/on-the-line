@@ -13,20 +13,20 @@ const resolvers = {
                 .skip(offset)
                 .limit(limit);
         },
-        posts: async (_, { userId, limit = 10, offset = 0 }) => {
+        posts: async (_, { userId, limit = 10, offset = 0, page = 1 }) => {
             const params = userId ? { "user": userId } : {};
-            return Post.find(params)
-                .populate('user')
-                .populate({
+            return Post.paginate(params, {
+                populate: ['user', {
                     path: 'comments',
                     populate: {
                       path: 'user',
                       select: 'username',
                     },
-                  })
-                .sort({ createdAt: 1 })
-                .skip(offset)
-                .limit(limit);
+                }],
+                sort: { createdAt: -1 },
+                limit, 
+                page
+            })
         },
 
         // For future development
@@ -88,7 +88,8 @@ const resolvers = {
             console.log(context.user)
 
             if (context.user) {
-                const post = await Post.create({ ...args, user: context.user._id, comments: []});
+
+                const post = await Post.create({ ...args, user: context.user._id,comments: []});
                 return post;
             }
             throw new AuthenticationError('You need to be logged in!');

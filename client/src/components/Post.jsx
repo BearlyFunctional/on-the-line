@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useState } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
 import Comments from './Comments';
 import CommentForm from './CommentForm';
@@ -16,12 +16,6 @@ export default function Posts({post}) {
 
     const {comments} = post
     const postId = post._id
-    // const commentId = comments[0]?._id || []
-
-    // console.log(commentId)
-
-    console.log(post)
-    console.log(comments)
     
     const [showComments, setShowComments] = useState(false);
     const [editMode, setEditMode] = useState(false);
@@ -37,8 +31,7 @@ export default function Posts({post}) {
     const [deletePost, {error}] = useMutation(
         DELETE_POST, {
             refetchQueries: [
-                QUERY_POSTS, //tentative
-                   
+                QUERY_POSTS, 
             ]
         }
     );
@@ -61,7 +54,7 @@ export default function Posts({post}) {
         <section className="box-shadow mb-5" key={post._id} data-id={post._id}> 
             <div className=" p-4">
                 <div className="bg-white border rounded-sm max-w-md">
-                    <div className="flex items-center px-4 py-2 justify-between">
+                    <div className="flex items-center py-2 justify-between">
                         {/* <img className="h-8 w-8 rounded-full" src="https://picsum.photos/id/1027/150/150"/> */}
                         <div className="ml-3 ">
                             <span className="text-base font-semibold antialiased block leading-tight">{post.user.username}'s post</span>
