@@ -1,5 +1,7 @@
 const { Schema, model } = require('mongoose');
 const commentSchema = require('./Comment');
+const paginate = require('mongoose-paginate-v2');
+const dateFormat = require('../utils/dateFormat');
 
 const postSchema = new Schema(
     {
@@ -14,11 +16,15 @@ const postSchema = new Schema(
         image:  {
             type: String
         },
-        // user: {
-        //     type: Schema.Types.ObjectId, ref :'user'
-        // },
-        user: { type: Schema.Types.ObjectId, ref :'user' },
+        user: { 
+            type: Schema.Types.ObjectId, ref :'user' 
+        },
         comments: [commentSchema],
+        createdAt: {
+            type: Date,
+            default: Date.now,
+            get: (timestamp) => dateFormat(timestamp),
+        }
     },
     {
         toJSON: {
@@ -26,6 +32,8 @@ const postSchema = new Schema(
         },
     }
 );
+
+postSchema.plugin(paginate);
 
 postSchema.virtual('commentCount').get(function() {
     return this.comments.length;

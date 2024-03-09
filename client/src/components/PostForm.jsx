@@ -7,7 +7,7 @@ import { CREATE_POST } from '../utils/mutations';
 const PostForm = () => {
 
     const [formState, setFormState] = useState({
-        // postImage: '',
+        image: '',
         altText: '',
         caption: '',
     });
@@ -43,16 +43,32 @@ const PostForm = () => {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
-        // if(!formState.postImage) {
-        //     setErrors('* please upload an image');
-        //     return;
-        // }
-        console.log('form state:')
-        console.log(formState)
+        if(!formState.image) {
+            setErrors('* please upload an image');
+            return;
+        }
+        
+        const formData = new FormData();
+        formData.append('image', formState.image)
     
         try {
+            const response = await fetch('/post-image-upload', {
+                method: 'POST',
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("id_token")}`
+                },
+                body: formData
+            });
+
+            if(response.status !== 200 ) {
+                throw new Error('image upload failed')
+            }
+
+            const uploadResult = await response.json()
+
             const { data } = await createPost({
                 variables: {
+                    image: uploadResult.url,
                     caption: formState.caption,
                     altText: formState.altText
                 }
@@ -74,8 +90,10 @@ const PostForm = () => {
     return (
         <>
             <h2 className='text-align-center pt-4 text-lg'> Create New Post</h2>
-            <form   className='display-flex padding-two box-shadow mt-5'
-                    onSubmit={handleFormSubmit}>
+            <form   
+                encType='multipart/form-data'
+                className='display-flex padding-two box-shadow mt-5'
+                onSubmit={handleFormSubmit}>
                 <label>
                     Upload picture:
                 </label>
@@ -83,12 +101,12 @@ const PostForm = () => {
                     className='box-shadow border-radius'
                     type="file"
                     accept='image'
-                    name='postImage'
+                    name='image'
                     onChange={handleChange}>
                 </input>
-                {formState.postImage && (
+                {formState.image && (
                     <img 
-                        src={URL.createObjectURL(formState.postImage)} 
+                        src={URL.createObjectURL(formState.image)} 
                         alt={formState.altText} 
                     />
                 )}

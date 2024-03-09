@@ -46,7 +46,7 @@ export default function Comments({comments, postId}) {
         }
     }
 
-    const [updateComment, { error2 } ] = useMutation
+    const [updateComment] = useMutation
         (EDIT_COMMENT, {
             refetchQueries: [
                 QUERY_POSTS,
@@ -150,13 +150,15 @@ export default function Comments({comments, postId}) {
                                             onClick={() => handleEdit(comments[i]._id, comments[i].content)}
                                             className='mr-4 sm-bt-padding'
                                             > 
-                                            <button className='inline-flex items-center rounded-md bg-indigo-600 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' 
-                                                    type='submit'>
+                                            <button 
+                                                className='inline-flex items-center rounded-md bg-indigo-600 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' 
+                                                type='submit'
+                                                >
                                                 Edit
                                             </button>
                                         </small>
                                     )} 
-                                    {onEditMode === true ? ('') : (
+                                    {onEditMode && selectedCommentId === comment._id === true ? ('') : (
                                         <small 
                                             className='sm-bt-padding'
                                             > 
@@ -165,7 +167,7 @@ export default function Comments({comments, postId}) {
                                                 type='submit' 
                                                 onClick={() => handleRemoveComment(comments[i]._id)}
                                                 >
-                                                    Delete
+                                                Delete
                                             </button>
                                         </small>
                                     )}

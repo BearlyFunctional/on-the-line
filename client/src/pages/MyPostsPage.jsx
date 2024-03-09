@@ -1,6 +1,8 @@
 import React from 'react';
 
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import ReactPaginate from 'react-paginate';
 import { useQuery } from '@apollo/client';
 
 import Posts from '../components/Post';
@@ -10,12 +12,18 @@ import Auth from '../utils/auth';
 
 export default function MyPostsPage() {
 
-    console.log(Auth.getProfile().data)
-    const { loading, data } = useQuery(QUERY_POSTS, {
-        variables: {userId: Auth.getProfile().data._id}
-    });
+    const [page, setPage] = useState(1)
 
-    const posts = data?.posts || [];
+    const { loading, data } = useQuery
+        (QUERY_POSTS, {
+            variables: {
+                userId: Auth.getProfile().data._id,
+                page
+            }
+        }
+    );
+
+    const posts = data?.posts.docs || [];
 
     if (loading) return <h2>loading...</h2>
 
@@ -28,6 +36,11 @@ export default function MyPostsPage() {
                                     < Posts post={post} key={post._id} />
                                 </div>
                             ))}
+                            < ReactPaginate 
+                                className='justify-between flex'
+                                pageCount={data?.posts.totalPages || 0 } 
+                                onPageChange={(newPage)=> {setPage(newPage.selected + 1 )} }
+                            />
                         </div>
                     ) : ( 
                         <div className='place-items-center'>
