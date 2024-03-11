@@ -34,13 +34,23 @@ Henry:
 
 screenshots:
 
+welcome page: 
+
+![welcome-page](https://github.com/Ivana-Djordjevic/on-the-line/assets/127266659/3cc95acc-923c-4689-8858-4c893be690d3)
+
 signup page:
+
+![signup-form](https://github.com/Ivana-Djordjevic/on-the-line/assets/127266659/9fa325f3-f908-497b-8f97-3af5e4442e56)
 
 homepage:
 
+![homepage-once-logged-in](https://github.com/Ivana-Djordjevic/on-the-line/assets/127266659/83d6d2d5-f892-40df-971c-eba16e9c0fa5)
+
 create post form:
 
-[deployed Render link -- edit link upon deployment](google.com)
+![create-post-form](https://github.com/Ivana-Djordjevic/on-the-line/assets/127266659/0200165f-ae1f-4b9e-b0b1-c6114482f72a)
+
+[deployed Render link](https://on-the-line.onrender.com/)
 
 ## Installation
 
