@@ -17,6 +17,21 @@ We have developed a social media application featuring user authentication capab
 
 Powered by a MERN stack architecture, our single-page application leverages React for an intuitive front-end experience, further enhanced by the elegance of Tailwind CSS/components/UI for design consistency and flexibility, while harnessing the power of GraphQL with Node.js and Express.js for efficient server-side operations. Data persistence is ensured through the utilization of MongoDB and Mongoose ODM, while AWS S3 serves as our reliable cloud server solution, ensuring seamless scalability and data management.
 
+Seperation of tasks:
+
+Ivana:
+- all front-end aspects
+- inital mongoose/grapql setup with login/sign up abilties
+- initially implemeted multer to store images 
+- then set up the cloud server (to store images) & connected it to front end 
+
+
+Henry:
+- mostly backend
+- expanded on models to include Post and Comments
+- expanded on resolvers and typeDefs to include Post and Comments functionality
+- expanded on mutations and queries (on the front-end) to include the Posts and Comments functionality 
+
 screenshots:
 
 signup page:
