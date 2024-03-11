@@ -21,7 +21,8 @@ export default function CaptionForm ({ postId, post, setEditMode }) {
             refetchQueries: [
                 QUERY_POSTS, 
             ]
-    });
+        }
+    );
     
     if(error) {console.log(error)}
 

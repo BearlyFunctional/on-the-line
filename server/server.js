@@ -1,4 +1,5 @@
 const { ApolloServer } = require('@apollo/server');
+const convert = require('heic-convert');
 const dotenv = require('dotenv');
 const express = require('express');
 const { expressMiddleware } = require('@apollo/server/express4');
@@ -6,8 +7,6 @@ const multer = require('multer');
 const path = require('path');
 const { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require('@aws-sdk/client-s3');
 const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
-const sharp = require('sharp');
-const convert = require('heic-convert');
 
 const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./utils/auth');
@@ -49,8 +48,6 @@ const startApolloServer = async () => {
 		context: authMiddleware
 		}
 	));
-
-	// app.use('/uploads', express.static('uploads'));
 	
 	const auth = (req, res, next) => {
 		const result = authMiddleware({req});
@@ -111,8 +108,6 @@ const startApolloServer = async () => {
 	});
 
 	app.put('/delete/:id', auth, async (req, res) => {
-		console.log('req body below:')
-		console.log(req.body)
 		const imageName = req.body.imageName;
 
 		const deleteParams = {

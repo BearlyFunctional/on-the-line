@@ -106,6 +106,7 @@ const PostForm = () => {
                 </input>
                 {formState.image && (
                     <img 
+                        className='create-post'
                         src={URL.createObjectURL(formState.image)} 
                         alt={formState.altText} 
                     />
