@@ -90,4 +90,4 @@ This application is covered under: MIT License.
 - [Tailwind post component used](https://tailwindcomponents.com/component/instagram-post)
 - [Tailwind dropdown menu component used](https://tailwindcomponents.com/component/dropdown-theme-with-tailwind-css)
 - [Tailwind UI textarea design used](https://tailwindui.com/components/application-ui/forms/textareas)
-
+- [.HEIC image conversion](https://codesandbox.io/p/sandbox/heic-convert-geyy0)
