@@ -14,8 +14,8 @@ export default function MyPostsPage() {
 
     const [page, setPage] = useState(1)
 
-    const { loading, data } = useQuery
-        (QUERY_POSTS, {
+    const { loading, data } = useQuery(
+        QUERY_POSTS, {
             variables: {
                 userId: Auth.getProfile().data._id,
                 page

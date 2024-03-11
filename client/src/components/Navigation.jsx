@@ -34,12 +34,13 @@ export default function Navigation() {
                                 My Posts
                             </button>
                         </Link>
-                        < Link to ="/donate"
+                        {/* for future dev */}
+                        {/* < Link to ="/donate"
                             className={location.pathname === 'donate' ? 'active' : ''}>
                             <button>
                                 Donate
                             </button>
-                        </Link>
+                        </Link> */}
                         <button className="" onClick={logout}>
                             Logout
                         </button>

@@ -153,7 +153,7 @@ button:focus-visible {
 form {
 	flex-direction: column;
 	line-height: 2;
-	max-width: fit-content;
+	/* max-width: fit-content; */
 }
 
 input {

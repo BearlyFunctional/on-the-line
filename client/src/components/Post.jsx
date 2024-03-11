@@ -13,10 +13,11 @@ import { DELETE_POST } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 export default function Posts({post}) {
-
-    const {comments} = post
-    const postId = post._id
     
+    const {comments} = post;
+    const postId = post._id;
+    const imageName = post.image;
+
     const [showComments, setShowComments] = useState(false);
     const [editMode, setEditMode] = useState(false);
 
@@ -40,6 +41,25 @@ export default function Posts({post}) {
 
     const handleDeletePost = async() => {
        try {
+            const pathname = new URL(imageName).pathname
+            const s3ImageName = pathname.substring(pathname.lastIndexOf('/') + 1 )
+
+            const response = await fetch(`/delete/${postId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: `Bearer ${localStorage.getItem("id_token")}`
+                },
+                body: JSON.stringify({imageName: s3ImageName})
+            });
+
+            const result = await response.json()
+            console.log(result)
+
+            if(response.status !== 200 ) {
+                throw new Error('post deletion failed')
+            }
+
             const { data } = await deletePost({
                 variables: { 
                     _id: postId,
@@ -93,7 +113,7 @@ export default function Posts({post}) {
                     {editMode ? (
                         < CaptionForm postId={post._id} setEditMode={setEditMode} post={post} key={post._id}/>
                     ) : (
-                        <div className="font-semibold text-base mx-4 mt-2 mb-4">
+                        <div className="text-small mx-4 mt-2 mb-4">
                             <h3>{post.caption ? post.caption : ''}</h3>
                         </div>
                     )}

@@ -15,8 +15,8 @@ export default function HomePage () {
 
     const [page, setPage] = useState(1)
 
-    const { loading, data, error } = useQuery
-        (QUERY_POSTS, {
+    const { loading, data, error } = useQuery(
+        QUERY_POSTS, {
             variables: {
                 page
             }
