@@ -14,8 +14,8 @@ export default function CommentForm ({ postId }) {
         setCommentBody(e.target.value);
     };
 
-    const [createComment, { error }] = useMutation
-        (CREATE_COMMENT, {
+    const [createComment, { error }] = useMutation(
+        CREATE_COMMENT, {
             refetchQueries: [
                     QUERY_POSTS
             ]

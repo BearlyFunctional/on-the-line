@@ -46,8 +46,8 @@ export default function Comments({comments, postId}) {
         }
     }
 
-    const [updateComment] = useMutation
-        (EDIT_COMMENT, {
+    const [updateComment] = useMutation(
+        EDIT_COMMENT, {
             refetchQueries: [
                 QUERY_POSTS,
             ]

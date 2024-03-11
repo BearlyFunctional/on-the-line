@@ -16,8 +16,8 @@ export default function CaptionForm ({ postId, post, setEditMode }) {
         setEditedCaption(e.target.value);
     };
 
-    const [updateCaption, { error }] = useMutation
-        (EDIT_POST, {
+    const [updateCaption, { error }] = useMutation(
+        EDIT_POST, {
             refetchQueries: [
                 QUERY_POSTS, 
             ]
@@ -42,7 +42,7 @@ export default function CaptionForm ({ postId, post, setEditMode }) {
     };
 
     return (
-        <form className='text-sm grey-bg flex border-radius sm-box-shadow mt-5 ml-3'>
+        <form className='text-sm grey-bg flex border-radius sm-box-shadow mt-5 ml-4 mr-4'>
             <div className='flex-col w-full'> 
                 <p className='font-semibold ml-3 pt-2'>edit caption:</p>
                 <div className="flex items-start space-x-4">

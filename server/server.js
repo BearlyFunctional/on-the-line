@@ -1,27 +1,13 @@
-const express = require('express');
 const { ApolloServer } = require('@apollo/server');
+const dotenv = require('dotenv');
+const express = require('express');
 const { expressMiddleware } = require('@apollo/server/express4');
-const path = require('path');
-const fs = require('fs');
-
 const multer = require('multer');
+const path = require('path');
+const { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require('@aws-sdk/client-s3');
+const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
 const sharp = require('sharp');
-
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './uploads')
-    },
-    imageOptions: {
-		fileFormat: 'jpg',
-		useTimestamp: true
-	},
-	// filename: function (req, file, cb) {
-    //     // Rename the file with a .jpg extension
-    //     cb(null, `${file.fieldname}-${Date.now()}.jpg`);
-    // }
-})
-
-const upload = multer({ storage: storage })
+const convert = require('heic-convert');
 
 const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./utils/auth');
@@ -35,6 +21,24 @@ const server = new ApolloServer({
 	resolvers,
 });
 
+dotenv.config();
+
+const bucketName = process.env.BUCKET_NAME;
+const bucketRegion = process.env.BUCKET_REGION;
+const accessKey = process.env.ACCESS_KEY;
+const secretAccessKey = process.env.SECRET_ACCESS_KEY;
+
+const s3 = new S3Client({
+	credentials: {
+		accessKeyId: accessKey,
+		secretAccessKey: secretAccessKey,
+	},
+	region: bucketRegion,
+})
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage })
+
 const startApolloServer = async () => {
 	await server.start();
 
@@ -46,9 +50,9 @@ const startApolloServer = async () => {
 		}
 	));
 
-	app.use('/uploads', express.static('uploads'));
+	// app.use('/uploads', express.static('uploads'));
 	
-	const uploadAuth = (req, res, next) => {
+	const auth = (req, res, next) => {
 		const result = authMiddleware({req});
 		if(!result.user) {
 			return res.sendStatus(401)
@@ -56,21 +60,75 @@ const startApolloServer = async () => {
 		next();
 	}
 
-	app.post('/post-image-upload', uploadAuth ,upload.single('image'), async function (req, res) {
-		 // Convert the uploaded image to jpg format
-	// 	await sharp(req.file.path)
-	// 		.jpeg() // Convert to jpeg format
-	// 		.toFile(`${req.file.path}.jpg`); // Save as new .jpg file
-	//  // Delete the original .heic file
-	//  	fs.unlinkSync(req.file.path);
-		
-		const response = {
-			message: 'Image uploaded successfully',
-			url: req.file.path
-			// url: `${req.file.path}.jpg`
+	app.post('/post-image-upload', auth, upload.single('image'), async (req, res) => {
+		try {
+			const file = req.file
+			
+			let fileBuffer;
+
+			if(file.mimetype === 'image/heic') {
+				fileBuffer = await convert({
+					buffer: file.buffer, // the HEIC file buffer
+					format: 'JPEG',       // output format
+					quality: 0
+				});
+			} else {
+				fileBuffer = file.buffer
+			}
+
+			const imageName = file.originalname + '-' + Date.now()
+			
+			const putObjectParams = {
+				Bucket: bucketName,
+				Key: imageName, 
+				Body: fileBuffer,
+				ContentType: file.mimetype
+			}
+			
+			const putCommand = new PutObjectCommand(putObjectParams)
+			
+			await s3.send(putCommand)
+	
+			const getObjectParams = {
+				Bucket: bucketName,
+				Key: imageName
+			}
+
+			const getCommand = new GetObjectCommand(getObjectParams);
+			const url = await getSignedUrl(s3, getCommand, {expiresIn: 604800})
+			
+			const response = {
+				message: 'Image uploaded successfully',
+				url: url
+			}
+	
+			console.log(req.file)
+	
+			return res.send(response)
+		} catch (error) {
+			console.log(error)
 		}
+	});
+
+	app.put('/delete/:id', auth, async (req, res) => {
+		console.log('req body below:')
+		console.log(req.body)
+		const imageName = req.body.imageName;
+
+		const deleteParams = {
+			Bucket: bucketName,
+			Key: imageName
+		}
+		const command = new DeleteObjectCommand(deleteParams)
+		
+		await s3.send(command)
+
+		const response = {
+			message: 'post deleted successfully'
+		}
+
 		return res.send(response)
-	})
+	});
 
 	// if we're in production, serve client/build as static assets
 	if (process.env.NODE_ENV === 'production') {
