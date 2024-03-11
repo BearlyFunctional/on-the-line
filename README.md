@@ -1,53 +1,78 @@
 # On-the-line
 
-a social media app, similar to instagram where you can share pictures with text and add comments
+![License](https://img.shields.io/badge/License-MIT_License-lightblue.svg)
 
--potentially using the shadcn as UI 
+## Table of Contents
 
-Henry: database 
+- [Description](#description)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Future Devs](#future-devs)
+- [License](#license)
+- [Credit](#credit)
 
-Rob: front end shadcn, graphql, authentication will be boilerplate
+## Description
 
-Ivana: react groundwork, graphql
+We have developed a social media application featuring user authentication capabilities. Our platform allows users to seamlessly post images accompanied by captions, fostering engagement through interactive commenting functionality. 
 
-- authentication will be boilerplate
+Powered by a MERN stack architecture, our single-page application leverages React for an intuitive front-end experience, further enhanced by the elegance of Tailwind CSS/components/UI for design consistency and flexibility, while harnessing the power of GraphQL with Node.js and Express.js for efficient server-side operations. Data persistence is ensured through the utilization of MongoDB and Mongoose ODM, while AWS S3 serves as our reliable cloud server solution, ensuring seamless scalability and data management.
 
-## things to do 
+screenshots:
 
-queries needed: 
-- all the users and their posts (view the users' posts on the homepage in chronological order, ~look into how to limit entries per page)
-- view the user's post on the their 'my posts' page 
-- create post
-- edit post
-- deleting individual posts
-- create comments
-- edit comments 
-- delete comments 
+signup page:
 
-task breakdown: 
+homepage:
 
-- complete typedefs 
-- complete resolvers 
+create post form:
 
-- implement the data on the website through the diff pages 
-- homepage to see all the users' pics in chronological order, create post connect to form, view your own posts
+[deployed Render link -- edit link upon deployment](google.com)
 
-- CSS over it 
+## Installation
 
-## MVP 
+Front end:
+- @apollo/client
+- jwt-decode
+- react
+- react-dom
+- react-paginate
+- react-router-dom
+- vite
+- @vitejs/plugin-react
 
-- an application where the use needs to login in order to post pictures and view other ppl's post 
-- one where the user can create a post, edit a post and delete a post
-- one where thee user can create a comment on a post, edit the comment or delete comment
-- a polished UI
+Backend :
+- @apollo/server
+- @aws-sdk/client-s3
+- @aws-sdk/s3-request-presigner
+- bcrypt
+- dotenv
+- express
+- graphql
+- heic-convert
+- jsonwebtoken
+- mongoose
+- mongoose-paginate-v2
+- multer
 
+## Usage
 
-## future dev:
+In this application, users have the ability to navigate through a collection of posts authored by their peers, affording them the opportunity to engage in discourse through the addition of comments. Additionally, users possess the autonomy to modify and remove their own contributions within the platform, ensuring a personalized and curated experience tailored to individual preferences.
 
-- use a service to host the pictures
-- add a profile page where the user can delete their own profile
-- add filters
-- add. a like button
-- a share button
-- add the donation feature
+## Future devs:
+
+- add a profile page where users can edit or delete their profile
+- add a donate page where users can donate to devs
+- add a feature that enables user to add filters onto their images
+- add a feature that enables users to like, as well as share a post
 - add a dark mode
+
+## License
+
+This application is covered under: MIT License. 
+
+## Credit
+
+- [video that help me switch to AWS S3 cloud server](https://www.youtube.com/watch?v=eQAIojcArRY&ab_channel=SamMeech-Ward)
+- [Tailwind post component used](https://tailwindcomponents.com/component/instagram-post)
+- [Tailwind dropdown menu component used](https://tailwindcomponents.com/component/dropdown-theme-with-tailwind-css)
+- [Tailwind UI textarea design used](https://tailwindui.com/components/application-ui/forms/textareas)
+

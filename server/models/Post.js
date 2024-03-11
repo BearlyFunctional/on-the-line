@@ -7,7 +7,7 @@ const postSchema = new Schema(
     {
         caption: {
             type: String,
-            required: true,
+            required: false,
         },
         altText: {
             type: String,
