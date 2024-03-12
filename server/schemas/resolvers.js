@@ -13,7 +13,7 @@ const resolvers = {
                 .skip(offset)
                 .limit(limit);
         },
-        posts: async (_, { userId, limit = 10, offset = 0, page = 1 }) => {
+        posts: async (_, { userId, limit = 1000, offset = 0, page = 1 }) => {
             const params = userId ? { "user": userId } : {};
             return Post.paginate(params, {
                 populate: ['user', {

@@ -36,11 +36,11 @@ export default function MyPostsPage() {
                                     < Posts post={post} key={post._id} />
                                 </div>
                             ))}
-                            < ReactPaginate 
+                            {/* < ReactPaginate 
                                 className='justify-between flex'
                                 pageCount={data?.posts.totalPages || 0 } 
                                 onPageChange={(newPage)=> {setPage(newPage.selected + 1 )} }
-                            />
+                            /> */}
                         </div>
                     ) : ( 
                         <div className='place-items-center'>

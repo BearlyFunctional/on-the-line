@@ -100,7 +100,7 @@ const PostForm = () => {
                 <input 
                     className='box-shadow border-radius'
                     type="file"
-                    accept='image'
+                    accept='.png, .jpg, .jpeg, .heic'
                     name='image'
                     onChange={handleChange}>
                 </input>
