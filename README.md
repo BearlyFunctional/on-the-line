@@ -67,7 +67,6 @@ Front end:
 Backend :
 - @apollo/server
 - @aws-sdk/client-s3
-- @aws-sdk/s3-request-presigner
 - bcrypt
 - dotenv
 - express
@@ -84,6 +83,11 @@ In this application, users have the ability to navigate through a collection of 
 
 ## Future devs:
 
+Bugs:
+- fix pagination:
+currently the previous button only works if you press the next button twice, for that reason it was commented out 
+
+Improvments:
 - add a profile page where users can edit or delete their profile
 - add a donate page where users can donate to devs
 - add a feature that enables user to add filters onto their images
