@@ -10,6 +10,7 @@ const PostForm = () => {
         image: '',
         altText: '',
         caption: '',
+        fileType: '',
     });
 
     const [errors, setErrors] = useState('');
@@ -22,8 +23,8 @@ const PostForm = () => {
         const { name, value, files } = event.target;
 
         if (files) {
-            setFormState({...formState, [name]: files[0]})
-        } else if (name === 'postImage' 
+            setFormState({...formState, [name]: files[0], fileType: files[0].type})
+        } else if (name === 'image' 
                 || name === 'caption'
                 || name === 'altText') {
             setFormState({ ...formState, [name]: value });
@@ -104,12 +105,14 @@ const PostForm = () => {
                     name='image'
                     onChange={handleChange}>
                 </input>
-                {formState.image && (
-                    <img 
-                        className='create-post'
-                        src={URL.createObjectURL(formState.image)} 
-                        alt={formState.altText} 
-                    />
+                {formState.image && formState.fileType !== 'image/heic' && (
+                    <div>
+                        <img 
+                            className='create-post'
+                            src={URL.createObjectURL(formState.image)} 
+                            alt={formState.altText} 
+                        />
+                    </div>
                 )}
                 {errors && <p className='error'>{errors}</p>}
                 {/* <br /> */}
