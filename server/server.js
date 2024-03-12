@@ -92,11 +92,13 @@ const startApolloServer = async () => {
 			}
 
 			const getCommand = new GetObjectCommand(getObjectParams);
-			const url = await getSignedUrl(s3, getCommand, {expiresIn: 604800})
+			// const url = await getSignedUrl(s3, getCommand, {expiresIn: 604800})
+			
+			// https://on-the-line-project.s3.us-west-1.amazonaws.com/2X0A8315.jpg-1710185438970
 			
 			const response = {
 				message: 'Image uploaded successfully',
-				url: url
+				url:`https://on-the-line-project.s3.us-west-1.amazonaws.com/${imageName}`
 			}
 	
 			console.log(req.file)

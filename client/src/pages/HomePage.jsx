@@ -13,7 +13,7 @@ import Auth from '../utils/auth';
 
 export default function HomePage () {
 
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(0)
 
     const { loading, data, error } = useQuery(
         QUERY_POSTS, {
@@ -36,11 +36,15 @@ export default function HomePage () {
                         {posts.map((post) => (
                             < Posts post={post} key={post._id} postId={post._id}/>
                         ))}
-                        < ReactPaginate 
+                        {/* < ReactPaginate 
                             className='justify-between flex'
                             pageCount={data?.posts.totalPages || 0 } 
-                            onPageChange={(newPage)=> {setPage(newPage.selected + 1 )} }
-                        />
+                            start={0}
+                            onPageChange={(newPage)=> {
+                                console.log(newPage)
+                                setPage(newPage.selected + 1 )
+                            }}
+                        /> */}
                     </div>
                 ) : ( 
                     <div className='place-items-center'>

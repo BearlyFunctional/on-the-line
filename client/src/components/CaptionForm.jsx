@@ -8,8 +8,6 @@ import { EDIT_POST } from '../utils/mutations';
 
 export default function CaptionForm ({ postId, post, setEditMode }) {
 
-    console.log(post)
-
     const [editedCaption, setEditedCaption] = useState(post.caption || '');
 
     const handleCaptionChange = (e) => {
